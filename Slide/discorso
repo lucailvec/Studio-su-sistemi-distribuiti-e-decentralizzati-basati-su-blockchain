@@ -1,0 +1,56 @@
+risorse umane xprivia credit foutering sql c c# .net 
+
+Oggetto della seguente tesi è $TITOLO
+Innanzitutto cosa vuol dire blockchain,
+$DEF
+
+
+Ogni utente è identificato in questo sistema dalla coppia chiave pubblica/privata.
+E' possibile interagire con la bc tramite uno speciale messaggio detto transazione, che contiene un payload come può essere una transazione precedente, l'indirizzo del destinatario e il tutto viene firmato con la chiave privata del mittente così che ognuno può verificarne la validità.
+A causa delle latenze e della rete non affidabile si deve predisporre un meccanismo di replicazione dello stato. Una transazione per poter essere inclusa deve essere registrata in un blocco ed essi sono contatenati l'uno all'alltro. La creazione di un blocco richiede la dimostrazione di una prova, la proof, di una spesa o computazionale o economica per evitare che un attaccante possa facilmente riscrivere i blocchi. 
+
+Analizzando i blocchi è possibile ricostruire una catena di transazioni che hanno ad oggetto ricorsivamente sempre la stessa transazione, questo costituisce la base della criptovaluta: non viene trasferita la valuta in senso stretto ma il diritto di utilizzo di essa.
+ 
+Già con la prima blockchain Bitcoin è stata introdotta la possibilità di rendere programmabili la validità delle transazioni tramite un
+linguaggio stack-based.
+
+E' utile però  poter programmare ed eseguire applicazioni complesse con le stesse proprietà della blockchain.	
+Successivamente alla nascita di Bitcoin molte sono state realizzate ma proponenvano funzionalità specifiche come servizi di DNS basate su blockkchain o proponevano solo modifiche sostanziali alla proof.
+
+Ethereum è una piattaforma decentralizzata basata su blockchain per l'esecuzione di particolari applicazioni definite smart contract. 
+
+#
+
+Cambiamo il paradigma tipico dell'architettura client-server nel quale ad un singolo ente era demandata l'esecuzione di qualsiasi operazione e l'utente attraverso un interfaccia interagiva con il sistema. 
+Ora abbiamo un sistema decentralizzato nel quale l'autenticazione è gestita interamente dall' utente ed interagisce mediante transazioni firmate, dove la fiducia verso la crittografia sostituisce quella verso la terza parte fidata e si rimuove la possibilità di censura, frodi e senza la possibilità di downtime. 
+Tramite l'utilizzo di Ethereum i compiti d gestire le informazioni, di vigilare sul rispetto dei tempi e la criptovaluta vengono gestiti da uno smart contract quindi un ente autonomo, imparziale, il cui funzionamento è trasparente e tracciabile.
+
+Il centro di quasto progetto è stato lo sviluppo dello smart contract Digichain, che impersona l'ente autonomo per 
+la gestione delle opere autoriali. Permette la registrazione di opere attraverso l'inserimento dei metadati e da la possibilità di ricevere valuta in cambio della condivisione dei diritti di un opera.
+Inoltre digichain registrerà quali sono i trend sulle opere in modo tale che un utente potrà sciegliere quello più adatto.
+Durante il deposito del bilancio per l'acquisizione di un diritto Digichain crerà dei nuovi contratti Registrazione in cui risiede la registrazione del diritto di utilizzo di un opera.
+
+Il contratto Registrazione è la prova di acquisto del diritto, è univoca attraverso il proprio indirizzo. 
+Gestisce i fondi impegnati per l'utilizzo dell'opera e dispone le regole per la distruzione ( suicidio ).
+Ogni utente potrà verificare se un altro dispone dei diritti necessari per l'utilizzo e sarà la blockchain che certificherà il possesso.
+
+Per lo sviluppo di smart contract sono stati utilizzati una serie di strumenti:
+lo smart contract è scritto in Solidity che è il linguaggio ad alto livello orientato ai contratti, staticamente tipizzato, con supporto all'ereditarietà, definizione di nuovi tipi, librerie e comandi specifici per l'esecuzione dei contratti.(delegate call / call)
+
+Per simulare una rete blockchain sono stati usati dei nodi Geth che validano transazioni, creano blocchi e li condividono con gli altri nodi della rete privata che ha permesso di testare le interazioni (devo dire di testrpc ?).
+
+E' stato applicato il framework mocha per il test di unità degli smart contract.
+
+Solidity browser è l'ide di sviluppo del linguaggio solidity e ha permesso di predisporre di un ambiente di testing nel quale simulare il deploy e l'esecuzione di smart contract in ambiente js e permette il debugging e la verifica formale del codice scritto.
+
+L'interazione con i contratti che viene attraverso la CLI di geth deve essere preceduta dal deploy dei contratti. E' stato scritto uno script che attraverso il compilatore solc compila i contratti e una volta ottenuto il compilato (ABI, bytecode di EVM) esegue il deploy attraverso un nodo a cui è connesso. Una volta che la transazione è stata inclusa in un blocco valido viene ritornato l'indirrizzo del contratto con cui potremo interagire. 
+
+Uno dei problemi principali dell'architettura di ethereum e di quella dei sistemi basati su blockchain è l'assenza della programmazione ad eventi, non è possibile per ora realizzare soluzione decentralizzate ed efficienti. Ogni operazione della EVM ha un costo, ogni utente pagherà per l'esecuzione di funzioni e non esistono garanzie su quando viene registrata una transazione. 
+
+Alcuni di questi problemi sono stati risolti mediante l'utilizzo di pattern orientati ai contratti come il system of contracts e l'escrow.
+E' stato risolto il pagamento in funzione del tempo mediante il refound sicuro e garantito della blockchain. Si è cercata di risolvere l'assenza della programmazione ad eventi mediante incentivazione degli utenti a far scattare determinate funzioni .
+
+Seppur questa applicazione sia una proof-of-concept e la mancanza di un'interfaccia grafica ne limita la facilità d'uso, l'applicazione è funzionante e può essere utilizzata realmente. Attraverso una futura implementazione tramite plugin per i browser ogni contenuto digitale potrebbe essere tracciato efficamente. Le blockchain e specialemente Ethereum introducono una grande possibilità che nel prossimo futuro potrà portare alla sostituzione delle applicazioni basate su una terza parte fidata con uno smart contract autonomo, imparziale che non può essere soggetto a censura, frodi e periodi di downtime		
+
+
+

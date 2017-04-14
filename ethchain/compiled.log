@@ -1,0 +1,21 @@
+Registrazione.sol:30:6: Warning: Failure condition of 'send' ignored. Consider using 'transfer' instead.
+	    ownerOfOpera.send(this.balance);
+	    ^-----------------------------^
+Registrazione.sol:35:6: Warning: Failure condition of 'send' ignored. Consider using 'transfer' instead.
+	    owner.send(amountToRefound);
+	    ^-------------------------^
+Registrazione.sol:37:6: Warning: Failure condition of 'send' ignored. Consider using 'transfer' instead.
+	    ownerOfOpera.send(spent);
+	    ^----------------------^
+Digichain.sol:56:5: Warning: Failure condition of 'send' ignored. Consider using 'transfer' instead.
+	   msg.sender.send(msg.value);
+	   ^------------------------^
+Digichain.sol:60:6: Warning: Failure condition of 'send' ignored. Consider using 'transfer' instead.
+	    msg.sender.send(msg.value);
+	    ^------------------------^
+Digichain.sol:64:6: Warning: Failure condition of 'send' ignored. Consider using 'transfer' instead.
+	    msg.sender.send(msg.value);
+	    ^------------------------^
+Digichain.sol:77:7: Warning: Failure condition of 'send' ignored. Consider using 'transfer' instead.
+		    msg.sender.send(msg.value);
+		    ^------------------------^

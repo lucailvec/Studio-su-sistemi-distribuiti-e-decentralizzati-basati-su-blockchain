@@ -1,0 +1,37 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Inquadramento generale}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Cenni teorici}{2}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}Paxos e il consenso}{2}{subsubsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.2}Blockchain, un sistema distribuito e decentralizzato}{6}{subsubsection.1.1.2}
+\contentsline {subsection}{\numberline {1.2}La nascita della blockchain: Bitcoin}{8}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Proof-of-work e i problemi legata ad essa}{13}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Proof-of}{16}{subsection.1.4}
+\contentsline {subsubsection}{\numberline {1.4.1}Proof-of-stake}{16}{subsubsection.1.4.1}
+\contentsline {subsubsection}{\numberline {1.4.2}Proof-of-burn, proof-of-capacity e proof-of-authority }{18}{subsubsection.1.4.2}
+\contentsline {subsection}{\numberline {1.5}Aspetti economici}{18}{subsection.1.5}
+\contentsline {subsubsection}{\numberline {1.5.1}Chi decide il prezzo}{19}{subsubsection.1.5.1}
+\contentsline {subsubsection}{\numberline {1.5.2}Halving}{20}{subsubsection.1.5.2}
+\contentsline {section}{\numberline {2}Ethereum}{22}{section.2}
+\contentsline {subsection}{\numberline {2.1}Ethereum e la sua storia}{22}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Ethereum e il suo funzionamento}{23}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Il paradigma della blockchain}{23}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}World state}{24}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}Transazioni}{24}{subsubsection.2.2.3}
+\contentsline {subsubsection}{\numberline {2.2.4}Blocco}{26}{subsubsection.2.2.4}
+\contentsline {subsection}{\numberline {2.3}Strumenti per lo sviluppo}{27}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Problemi delle applicazioni basate su blockchain}{28}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Sviluppare in Solidity}{29}{subsection.2.5}
+\contentsline {section}{\numberline {3}L'applicazione}{32}{section.3}
+\contentsline {subsection}{\numberline {3.1}Registrar}{32}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Digichain}{34}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Possibili sviluppi}{36}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}System of Contracts}{36}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}Controlli temporizzati}{37}{subsubsection.3.3.2}
+\contentsline {section}{\numberline {4}Conclusioni}{39}{section.4}
+\contentsline {section}{Appendice}{40}{section*.2}
+\contentsline {section}{\numberline {A}Visionare i nodi di una private-net Ethereum mediante strumenti visuali}{40}{Appendix.1.A}
+\contentsline {section}{\numberline {B}Inizializzazione di nodi Geth}{41}{Appendix.1.B}
+\contentsline {subsection}{\numberline {B.1}Deploy ed interazione del contratto}{44}{subsection.1.B.1}
+\contentsline {subsection}{\numberline {B.2}Mining}{44}{subsection.1.B.2}
+\contentsline {section}{\numberline {C}SendTransaction (side-effect call) e call}{45}{Appendix.1.C}
+\contentsline {section}{\numberline {D}Eventi, log e return}{45}{Appendix.1.D}

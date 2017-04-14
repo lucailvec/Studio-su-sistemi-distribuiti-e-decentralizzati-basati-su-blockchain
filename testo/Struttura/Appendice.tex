@@ -1,0 +1,253 @@
+\begin{appendices}
+	Qui saranno contenute le appendici che nel corso della trattazione di questa tesi mi hanno permesso di eseguire operazioni particolari o che non hanno trovato posto nella trattazione.
+	
+	
+	\section{Visionare i nodi di una private-net Ethereum mediante strumenti visuali}\label{appendice:a}
+	%https://github.com/paritytech/parity
+	
+	Visionare lo stato di una blockchain non è un compito semplice da effettuare da riga di comando, si perde la visione d'insieme che spesso è la cosa che interessa. Potrebbe capitare di essere interessati all'hashrate della rete o al numero di transazioni che vengono effettuate in una particolare \textit{testnet}. Per visionare le blockchain pubbliche esistono siti costruiti ad hoc \footnote{I più celebri: \url{https://blockchain.info/}, \url{https://chain.so}, \url{.blockr.io},  \url{https://etherchain.org/}, \url{http://moneroblocks.info/}}per controllare graficamente lo stato dei blocchi, dei parametri riguardanti i blocchi e le transazioni, per ricevere notifiche real-time sulle transazioni immesse nella rete, però possiamo osservare che non per tutte le criptovalute questo è disponibile.\\
+	Nel seguente caso vogliamo costruire un interfaccia grafica che permetta di osservare la blockchain privata di Ethereum.
+	In rete, attualmente, è disponibile \textit{etherchain-light}\footnote{\url{https://github.com/gobitfly/etherchain-light}} che fornisce alcune delle funzionalità sopra citate e sfrutta l'interfaccia fornita da il light-node \textit{Parity}\footnote{\url{https://github.com/paritytech/parity}}.
+	
+	Nel seguente elaborato per costruire la rete privata di nodi sono state usate istanze Geth e per collegare il nodo Parity ad esse è stato richiesto di effettuare i settaggi del blocco di genesi, del network-id e l'aggiunta degli endpoint \lstinline|enode| dei nodi Geth. 
+	Purtroppo per via dell'incompatibilità tra Parity e Geth è stato imposto il bisogno di tradurre il blocco di genesi per Geth in un formato compatibile per Parity\footnote{\url{https://github.com/keorn/parity-spec}}. Non è stato raggiunto il fine di far comunicare il nodo Parity con i nodi Geth e quindi non si è potuta analizzare la blockchain privata. Si sospetta fortemente che i nodi delle due tipologie non si sincronizzino per via del blocco di genesi diverso.\\
+	
+	Un applicativo parzialmente funzionante (durante la stesura di questo testo), ma che consente di visionare lo stato della rete a cui è connesso il nodo sottostante è \textit{ETHExplorer}\footnote{\url{https://github.com/carsenk/explorer}}. Esso non richiede il collegamento ad un nodo Parity, bensì si collega direttamente all'interfaccia RPC di Geth e quindi può essere utilizzato, senza aggiunte, nella topologia di rete di questo elaborato.
+	
+	Una volta scaricato l'applicativo e settato l'ambiente per consentirne la sua funzione, si eseguono le istanze dei nodi e l'applicativo si connette di default all'endpoint  \lstinline|localhost:8545|. 
+	Navigando dal browser su  \lstinline|localhost:3000| è possibile avere delle statistiche sul tempo medio di creazione dei blocchi, l'hashrate attuale della rete e altri parametri, nonchè gli ultimi blocchi minati e le ultime transazioni effettuate.\\
+	
+	Attualmente questi strumenti non sono così completi rispetto ai siti di ispezione delle blockchain pubbliche (es. \url{blockchain.info}) ma forniscono un ottimo e immediato resoconto generale.
+	
+	\section{Inizializzazione di nodi Geth}\label{appendice:b}
+		
+		
+		Per poter minare blocchi, includendo le transazioni e rispondendo alle chiamate via RPC, si necessita di una componente software che funga da nodo, le scelte sono molteplici. E' presente in rete \textit{Testrpc}\footnote{\url{https://github.com/ethereumjs/testrpc}}, un node scritto in puro javascript, il quale consente di predisporre delle interfacce e i comportamenti che permettono di simulare l'interazione con la blockchain ottenendo una rete privata composta da un solo miner. La grande quantità di funzioni dell'interfaccia che un nodo vero dovrebbe predisporre, rispetto a quella fornita da \textit{Testrpc}, porta questo software ad essere abbandonato durante lo sviluppo. 
+		I programmi ufficiali che comunicano con la rete p2p, minano blocchi eseguendo la proof e predispongono un'interfaccia RPC completa possono essere trovati \url{https://github.com/ethereum/}. 
+		In questo caso si è voluto utilizzare \textit{Geth}.
+		Per simulare un applicazione su reti reali possiamo partecipare alla blockchain pubblica in rete semplicemente eseguendo:
+		
+		\begin{lstlisting}
+		$ geth
+		\end{lstlisting}
+		
+		in modo tale da scaricare tutti i blocchi e abilitare il mining sfruttando la modalità full-node. Esistono anche altre possibilità tra cui scaricare la blockchain solo per analizzarla o per connettersi ad un light-client che connettendosi ad altri nodi permette di interagire con la blockchain.
+		
+		Oltre a connetterci alla rete principale (main-net) c'è la possibilità che Geth possa collegarsi alla rete di testing di Ethereum (\textit{Ropsten}) creata appositamente per permettere ai contratti di essere in esecuzione in una rete vera e propria senza eventuali costi .
+		L'ultima possibilità è quella di creare una propria blockchain in un'ambiente isolato: una private-net.
+		
+		Prima di poter far comunicare due nodi di Ethereum e farli minare sulla stessa blockchain bisogna comprendere con che criterio un nodo può sostituire la propria blockchain, sulla quale stava lavorando, con una che reputa migliore ottenuta da un nodo a cui è connesso.
+		
+		Un nodo in ascolto nella rete può trovare nuovi nodi a cui connettersi per lavorare insieme, con il fine di estendere la medesima blockchain, solo se si verificano due ipotesi:
+		\begin{itemize}
+			\item i nodi devono essere nella stessa rete virtuale (--$networkid$).
+			\item i blocchi di $genesi$ dei due nodi devono essere identici perché un nodo abbandoni la propria blockchain e la sostituisca con un'altra.
+		\end{itemize}
+		
+		Prima di tutto bisogna creare un account che sarà quello la cui chiave pubblica andrà inserita nell'etherbase/coinbase. Se in geth non viene passato nessun parametro $--etherbase$ viene preso il primo account trovato nel $keystore$\footnote{https://github.com/ethereum/go-ethereum/wiki/Managing-Your-Accounts}.	
+		
+		Per prima cosa installiamo Geth da repo\footnote{\url{https://github.com/ethereum/go-ethereum}}.
+		
+		I blocchi in Ethereum sono formattati\footnote{A seconda del software la formattazione dei blocchi varia, per esempio i blocchi compatibili con Parity non lo sono per Geth e viceversa.} in $JSON$ il che permette la lettura e scrittura in modo semplice. La creazione del blocco di genesi può essere eseguita in forma testuale, non avendo bilanci pre-allocati presenta la seguente struttura:
+		
+		\begin{lstlisting}
+		//file CustomGensis.json
+		{
+		"nonce": "0x0000000000000042",
+		"timestamp": "0x0",
+		"parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+		"extraData": "0x0",
+		"gasLimit": "0x8000000",
+		"difficulty": "0x400",
+		"mixhash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+		"coinbase": "0x3333333333333333333333333333333333333333",
+		"alloc": {
+		}
+		}
+		\end{lstlisting}
+		
+		La scelta del valore assegnato ai parametri è per la maggior parte arbitraria, gli unici parametri che è significativo settare sono:
+		
+		\begin{description}
+			\item[parentHash]: solo per il blocco di genesi è uno scalare assegnato a zero.
+			\item[alloc]: è un vettore di record di $<pubkey,numWei>$ e ne definisce la pre-allocazione di valute ai rispettivi account.
+			\item[difficulty]: definisce la difficoltà relativa al primo blocco, la difficoltà dei blocchi successivi verrà determinata dal timestamp e dalla difficoltà del blocco precedente.
+			\item[coinbase]: o etherbase, è l'indirizzo a 160bit che definisce a quale indirizzo le fee e il reward del blocco debbano essere trasferiti. Per il blocco di genesi può essere arbitrario in quanto verrà determinato dinamicamente dagli address dei miner.
+			\item[altro]: ogni altro campo è arbitrario e possono essere modificati a piacere contribuendo ad aggiungere entropia per evitare che involontariamente due nodi minino sulla stessa blockchain.
+		\end{description}
+		
+		
+		Per simulare due processi che eseguono il mining sulla stessa macchina locale, dobbiamo tenere in considerazione che ogni istanza: 
+		\begin{itemize}
+			\item deve poter creare le proprie strutture dati, --$datadir$ deve avere un path assoluto unico.
+			\item deve essere in ascolto su porte differenti (--$port$ e --$rpcport$).
+			\item l'endpoint deve essere unico o può essere disabilitato (--$ipcpath$ o --$ipcdisable$).
+		\end{itemize}
+		
+		Per comodità andiamo a definire degli script per l'inizializzazione dei nodi ($init.sh$)e degli script per l'avvio dei processi Geth.
+		\iffalse
+		\begin{lstlisting}
+		\\nodo1
+		geth --identity Node1 --etherbase 2a54983e9b648684676c4f78638654177cd4be6a --networkid 1234  --maxpeers 4 --datadir="chain"  -verbosity 6 --ipcdisable --port 30301 --rpc --rpcapi "db,eth,net,web3,personal" --rpcport 8101 --rpccorsdomain "*"  console --nat "any"  --autodag --preload "jsScript/function.js" 2>> ./chain/00.log
+		
+		\\nodo2
+		geth --identity Node1 --etherbase 438dfd4dfd26a42961d878a1e27eb9f40abb0d19 --networkid 1234  --maxpeers 4 --datadir="chain"  -verbosity 6 --ipcdisable --port 30302 --rpc --rpcapi "db,eth,net,web3,personal" --rpcport 8102 --rpccorsdomain "*"  console --nat "any"  --autodag --preload "jsScript/function.js" 2>> ./chain/00.log
+		
+		\end{lstlisting}
+		\fi
+		
+		Una volta avviati i due processi disporremo di una console in ambiente JS con dei moduli precaricati che ci permettono di interagire con il nodo a cui siamo connessi e con la blockchain.
+		I nodi di una rete privata dovranno essere registrati l'uno all'altro in modo tale da permettere che i peer scambino informazioni riguardanti le transazioni e i blocchi minati.
+		
+		%per testing e verifica che i nodi si vedono
+		
+		\iffalse
+		1>admin.nodeInfo
+		1>enode:\\....................[::]
+		
+		2>net.listening
+		2>net.peerCount 
+		2>admin.addPeer("enode:\\ .......... ")
+		2>admin.peers
+		\fi
+		
+		Da console possiamo creare nuovi account che risiederanno nel nostro keystore locale (se il keystore viene perso o la passphrase dimenticata non è possibile il recupero).
+		
+		\begin{lstlisting}
+		> personal.newAccount()
+		Passphrase: 
+		Repeat passphrase: 
+		"newaddress 0x..."
+		\end{lstlisting}
+		
+		
+		\textbf{Compilare da solc a EVMbytecode}\\
+		
+		I contratti vengono eseguiti sulla EVM di ethereum sottoforma di bytecode.
+		
+		Per verificare che geth conosca la locazione del compilatore per il linguaggio solidity:
+		
+		\begin{lstlisting}
+		eth.getCompilers()
+		\\oppure eth.compile.solidity("")
+		\end{lstlisting}
+		
+		E' possibile installarlo mediante \textbf{apt-get}. Oltre ad esso esiste \textit{Solc-js} che permette di compilare file \lstinline|*.sol| e di produrre \lstinline|*.sol.js| direttamente importabili dalla console di Geth, questo consente di automatizzare eventuale testing.
+		\iffalse
+		
+		\begin{lstlisting}
+		sudo add-apt-repository ppa:ethereum/ethereum
+		sudo apt-get update
+		sudo apt-get install solc
+		which solc
+		\end{lstlisting}
+
+		Per settare a runtime il compilatore:
+		
+		\begin{lstlisting}
+		> admin.setSolc("/usr/bin/solc")
+		
+		"solc, the solidity compiler commandline interface\nVersion: 0.4.10+commit.f0d539ae.Linux.g++\n"
+		\end{lstlisting}
+		%oppure aggiungo da riga di comando il compilatore mediante l'opzione --solc /usr/bin/solc
+		\fi
+				
+		Se correttamente installato da in output:
+		\begin{lstlisting}
+		> eth.getCompilers()
+		["Solidity"]
+		\end{lstlisting}
+		
+		E' possibile ora compilare uno o più contratti da console:
+		
+\begin{lstlisting}
+> comp= eth.compile.solidity("contract A {}")
+{
+	<stdin>:A: {
+	code: 			"0x60606040523415600b57fe5b5b60338060196000396000f3006060604052",
+	info: {
+		abiDefinition: [],
+		compilerOptions: "--combined-json bin,abi,userdoc,devdoc --add-std --optimize",
+		compilerVersion: "0.4.10",
+		developerDoc: {
+			methods: {}
+		},
+		language: "Solidity",
+		languageVersion: "0.4.10",
+		source: "contract A {}",
+		userDoc: {
+			methods: {}
+			}
+		}
+	}
+}
+\end{lstlisting}
+		
+		Dall'output \footnote{Nel caso specifico di solc versione 0.4.10 la compilazione produce un errore sulle label json utilizzando output["<stdin>:NOMEDELCONTRATTO"] \url{http://ethereum.stackexchange.com/questions/11912/unable-to-define-greetercontract-in-the-greeter- tutorial-breaking-change-in-sol/11915\#11915}}si può vedere immediatamente come deve essere gestita una Dapp:
+		
+		\begin{itemize}
+			\item \textbf{code}: è il codice in bytecode del contratto compilato, conterrà il codice di \textit{init} e il codice di \textit{body}.
+			\item \textbf{info}: contiene i metadati compreso l'abi, il nome e altre informazioni che, unite all'indirizzo di deploy, permettono alla libreria Web3 di predisporre di oggetti per l'interazione con i contratti deploiati.
+		\end{itemize}
+		
+		\subsection{Deploy ed interazione del contratto}
+		
+		Una volta che i nodi sono funzionanti ed è possibile compilare correttamente i contratti, può essere eseguito il deploy degli smart contract e interagirci.
+		
+		La libreria Web3 svolge il processo di collegare l'indirizzo del contratto che risiede (conosciuto solo dopo la compilazione e il deploy)  e l'interfaccia abi che predispone i metodi che possiamo interrogare.
+		
+		Una delle tante proprierty dell'oggetto \lstinline|eth| caricato nella console di Geth è \lstinline|eth.contract(abi)| che consente di ottenere un oggetto fittizio linkato ad abi. Su questo oggetto a seconda delle operazioni da effettuare vengono predisposti due proprietà dell'oggetto:
+		\begin{description}
+			\item[.new()]: consente di eseguire una transazione specificandone i campi ed inserendo nel campo \lstinline|data:| il codice del contratto. Se la transazione avverrà, la callback sarà chiamata e l'istanza collegata al contratto sulla blockchain sarà restituita.
+			\item[.at()]: consente di specificare un indirizzo e di ritornare un istanza del contratto che risiede sulla catena. 
+		\end{description}
+		
+		In tutti e due i casi, ottenuta l'istanza sarà possibile invocare su di essa il nome della funzione (contenuta nell'abi) e specificare se si vuole eseguire una call o una transazione\ref{appendice:c}.
+
+		
+		\subsection{Mining}
+		
+		La forma più semplice di mining da effettuare con Geth è il mining via CPU e senza dover settare l'ambiente. Nella versione \textit{Frontier} l'intervallo tra un blocco e l'altro è bilanciato sui 15-17 secondi, bilanciato dalla difficoltà settata dalla PoW Ethash.
+		
+		\begin{lstlisting}	
+		> miner.start(1)
+		true
+		
+		>eth.hashrate
+		4
+		\end{lstlisting}
+		
+		Come argomento del comando \lstinline|.start()| viene specificato il numero di thread che il processo usa per il mining. Nel caso un nuovo peer si unisce al mining, della medesima blockchain della stessa rete, automaticamente la difficoltà viene alzata.
+		
+		\iffalse
+		\begin{lstlisting}
+		eth.getBlock("pending", true).transactions
+		\end{lstlisting}
+		\fi
+	\section{SendTransaction (side-effect call) e call}\label{appendice:c}
+	
+	Formalmente i metodi \lstinline|.sendTransaction()| e \lstinline|.call()| che possiamo eseguire su un istanza \lstinline|eth.contract| mandando entrambi due chiamate all'interfaccia rpc del nodo a cui siamo collegati tramite l'interfaccia \textit{web3} (e i relativi moduli) che è caricata nella console JS. Il primo metodo esegue una transazione: viene passata all'interfaccia il mittente della transazione firmandola, il payload data, il nonce e tutti gli altri parametri di una transazione. L'esecuzione del comando ritornerà sempre l'hash della tx. Viceversa il metodo \lstinline|.call()| può essere invocato su un metodo che non produce cambiament e viene eseguita dal nodo sottostante, ritornerà un valore se sarà specificato le clausole \lstinline|constant returns|\footnote{L'identificativo \lstinline|constant| dichiara che la funzione non ha side-effect, questo rafforza l'analisi formale che può essere fatta}. 
+	Questo comporta:
+	\begin{itemize}
+		\item la transazione prima di produrre un cambiamento di stato deve essere condivisa con gli altri nodi e inclusa in un blocco valido, non è possibile a priori, sapere ne quando ne se sarà inclusa. 
+		\item la call ispeziona solo lo stato dei contratti nella blockchain e può essere eseguita immediatamente, non produce effetti, non deve essere inclusa in un blocco e ciò comporta che la sua esecuzione non ha un costo in gas.
+	\end{itemize}
+	
+	Ogni transazione nella piattaforma Ethereum ha un costo minino di 21000 gas (che moltiplicato per il gasPrice fornisce il costo in Wei della transazione)\footnote{ Per la documentazione ufficiale: \url{https://github.com/ethereum/wiki/wiki/JavaScript-API\#web3ethcall}}.
+	
+	\section{Eventi, log e return}\label{appendice:d}
+
+	Ogni contratto ha associato una struttura dati che contiene le \textit{entry log} emesse da un contratto. In base a \cite{yellowpaperethereum} un log è formato dall' indirizzo del logger, una serie di campi di 32 byte e un campo data contenente un numero arbitrario di byte.
+	
+	Come risultato di un invocazione di un evento \lstinline|event NomeEvento(_type _param)| viene emesso e registrato un log. Ovviamente ogni singolo log e ogni byte in esso contenuto costano gas, ma se la notifica è indispensabile si ritiene obbligato la scrittura dei log\footnote{I log costano 375 gas ognuno e 8 gas ogni byte aggiunto contro i 20.000 gas per ogni byte di storage del contratto}.
+	
+	L'esecuzione di una transazione dalla console di Geth,visto che restituisce solo l'hash della tx inviata per le ragione dell'appendice \ref{appendice:b}, richiede per la restituzione di un valore dalla sua esecuzione l'utilizzo di eventi.
+	
+	La classe web3.eth.contract permette di porsi in ascolto sul log di uno specifico contratto, specificando uno o tutti gli eventi che predispone l'interfaccia abi\footnote{	\url{https://github.com/ethereum/wiki/wiki/JavaScript-API\#contract-events}}.
+	
+	\iffalse
+	using a callback is just calling the RPC method asynchronously and will return the same as the sync function. On the RPC side there is no way to get a notification whether the tx was mined or not. you would need to check that yourself with a script looking at the next block.
+	We could think of integrating this into web3.js, but thats out of scope for now.
+	\fi
+
+\end{appendices}

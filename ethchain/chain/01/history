@@ -1,0 +1,722 @@
+ls
+eth.accounts
+sblocca()
+eth.accounts
+sblocca()
+eth.blockNumber
+eth.getBlock(0)
+personal.getList
+personal.getListAccounts
+personal.getListAccounts()
+miner.start(1)
+miner.stop()
+miner.start(8)
+eth.accounts[0]
+sblocca()
+eth.accounts
+sblocca()
+miner.start(1)
+miner.stop()
+eth.getBlockNumber
+eth.getBlockNumber()
+eth.accounts[0]
+var altro = eth.accounts[0]
+altro
+var altro = eth.accounts[1]
+altro
+eth.getBalance(eth.coinbase)
+eth.getBalance(altro)
+sblocca()
+eth.sendTransaction({from : eth.coinbase, to: altro, value: 1})
+eth.sendTransaction({from : eth.coinbase, to: altro, value: 0.00000000000000001})
+web3.toWei(1,"ether")
+web3.toEther(1,"wei")
+eth.sendTransaction({from : eth.coinbase, to: altro, value: 0.00000001})
+eth.sendTransaction({from : eth.coinbase, to: altro, value: web3.toWei(0.0001,"ether")})
+sblocca()
+eth.sendTransaction({from : eth.coinbase, to: altro, value: web3.toWei(0.0001,"ether")})
+eth.sendTransaction({from : eth.coinbase, to: altro, value: web3.toWei(0.0000001,"ether")})
+eth.sendTransaction({from : eth.coinbase, to: altro, value: web3.toWei(0.000000001,"ether")})
+eth.sendTransaction({from : eth.coinbase, to: altro, value: web3.toWei(0.000000000001,"ether")})
+eth.getBalance(eth.coinbase)
+sblocca()
+eth.sendTransaction({from : eth.coinbase, to: altro, value: web3.toWei(0.000000000001,"ether")})
+eth.sendTransaction({from : eth.coinbase, to: eth.accounts[2], value: web3.toWei(0.000000000001,"ether")})
+eth.sendTransaction({from : eth.coinbase, to: eth.accounts[2], value: web3.toWei(1,"ether")})
+miner.start(2)
+eth.sendTransaction({from : eth.coinbase, to: eth.accounts[2], value: web3.toWei(1,"ether")})
+eth.getBalance(eth.coinbase)
+miner.start(2)
+eth.blockNumber
+miner.setGasPrice(1)
+eth.getBalance(eth.coinbase)
+sblocca()
+eth.getBalance(eth.coinbase)
+eth.sendTransaction({from:eth.coinbase, to:eth.accounts[1], value: web3.toWei(0.05, "ether")})
+eth.getBalance(eth.accounts[1])
+eth.getPendingTransactions
+eth.getPendingTransactions()
+miner.stop()
+eth.getPendingTransactions
+eth.getPendingTransactions()
+miner.stop()
+admin.nodeInfo
+admin.peers
+miner.start(1)
+eth.getBalance(eth.coinbase)
+eth.accounts
+eth.getBalance(eth.coinbase)
+miner.stop)(
+miner.stop
+miner.stop()
+eth.getPendingTransactions
+eth.getPendingTransactions()
+eth.getPendingTransactions(1)
+eth.getPendingTransactions()
+eth.getCompilers()
+eth.compile.solidity("")
+eth.compile.solidity("contract A{ function getDouble(uint n) returns (uint){ retrun n*2;}}")
+eth.getCompilers()
+admin.setSolc("/usr/bin/solc")
+eth.getCompilers()
+eth.compile.solidity("contract A{ function getDouble(uint n) returns (uint){ retrun n*2;}}")
+eth.compile.solidity("contract A{ function getDouble(uint n) returns (uint){ return n*2;}}")
+admin.setSolc("/usr/bin/solc")
+eth.getCompilers()
+eth.compile.solidity("contract A{ function getDouble(uint n) returns (uint){ return n*2;}}")
+code
+comp=eth.compile.solidity("contract A{ function getDouble(uint n) returns (uint){ return n*2;}}")
+comp
+comp.info
+comp["info"]
+comp
+comp[1]
+comp.A
+comp.<stdin>:A
+comp.
+comp.constructor
+comp
+comp.A
+comp.stdin
+comp.<stdin>
+comp.<stdin>:A
+comp.:A
+comp.A
+comp.valueOf
+comp.valueOf()
+comp.valueOf("code")
+comp.valueOf().code
+comp.valueOf().A
+comp
+comp.1
+var response = {results: 2938; id: 9283};
+var response = {results: 2938, id: 9283};
+response.id
+comp.stdin.
+comp.stdin.resume(
+)
+Object.keys(comp)
+comp.(Object.keys(comp))
+comp.Object.keys(comp)
+eth.compile.solidity("contract A {}")
+comp= eth.compile.solidity("contract A {}")
+comp
+comp= eth.compile.solidity("contract A {}")
+comp= eth.compile.solidity("contract A {} contract B {}")
+comp["A"]
+comp.A
+require("fs")
+source = "contract A{}"
+eth.compile.solidity(source)
+eth.compile.solidity(source)[0]
+eth.compile.solidity(source)[0].code
+eth.compile.solidity(source)[0].A
+eth.compile.solidity(source)["A"]
+eth.compile.solidity(source)["A"].code
+eth.compile.solidity(source).A.code
+eth.compile.solidity(source)
+contracts = eth.compile.solidity(globalRegistrarSrc)
+contracts = eth.compile.solidity(source)
+contracts.A
+.code
+contracts.contracts['A']
+fs
+require('fs')
+source = "contract Abbronzatissim{};"
+contracts = eth.compile.solidity(source)
+source = "contract Abbronzatissim{};"
+source = "contract Abbronzatissim{}"
+contracts = eth.compile.solidity(source)
+JSON.parse(contracts)
+JSON.stringify(contracts
+)
+contracts.\\u003cstdin\\u003e:Abbronzatissim\
+contracts.<stdin>:Abbronzatissim
+contracts.\<stdin>:Abbronzatissim
+contracts.\<stdin\>:Abbronzatissim
+contracts."Abbronzatissim"
+JSON.valueOf()
+JSON.valueOf(contracts)
+JSON.toString(9
+)
+JSON.toLocaleString
+JSON.toLocaleString()
+JSON.toLocaleString(contracts)
+contracts
+contracts["<stdin>:Abbronzatissim"]
+source = "contract test{ function double(uint n) returns (uint){ return 2*n; }}"
+contract = eth.compile.solidity(source)
+testContract = web3.eth.contract(contract["<stdin>:test"].info.abiDefinition)
+var test = testContract.new(,{from: eth.coinbase,data: contract["<stdin>:test"].code,gas = 1000000},function (e,con){
+if(!e){
+if(!con.address){
+console.log("Waiting to be mined" + con.transactionHash);}
+else{
+consol.log("contractmined" + con.address);
+console.log(con);
+}
+}
+}
+)
+loadScript("../testDeploy.js")
+deployTest()
+loadScript("../testDeploy.js")
+contract
+deployTest(contract)
+contract["<stdin>:test"]
+contract["<stdin>:test"].code
+contracts = contract
+deployTest(contract)
+loadScript("../testDeploy.js")
+deployTest(contract)
+contract
+deployTest(contract)
+loadScript("../testDeploy.js")
+deployTest(contract)
+loadScript("../testDeploy.js")
+deployTest(contract)
+var test = deployTest(contract)
+test
+contract
+test.double(2)
+test.double("2")
+eth.getCode(test.address)
+test.address
+loadScript("../testDeploy.js")
+var test = deployTest(contract)
+test
+miner.start(1)
+loadScript("../testDeploy.js")
+getCoinbaseBalance()
+loadScript("../testDeploy.js")
+getCoinbaseBalance()
+loadScript("../testDeploy.js")
+getCoinbaseBalance()
+var test = deployTest(contract)
+sblocca()
+var test = deployTest(contract)
+test.double("2")
+test
+eth.getCode(test.address)
+eth.getCode(test)
+test
+loadScript("../testDeploy.js")
+var test = deployTest(contract)
+test
+test.double("2")
+test.double(2)
+test.address
+test.double.call("2",function (e,result){if(e)console.log(e);else{consol.resul(result)}})
+test.double.sendTransaction("2",0,{from: eth.coinbase})
+sblocca()
+test.double.sendTransaction("2",0,{from: eth.coinbase})
+test.double.sendTransaction("2",0,{from: eth.coinbase}).then(function(e,result){consol.log(result);})
+test.double.sendTransaction("2",2000,{from: eth.coinbase})
+source = "contract test{ address public addr; event settedNumber(uint numero);function double(uint n)returns (uint){ settedNumber(n); return 2*n; }}"
+source = "contract test{
+address public addr;
+event settedNumber(uint numero);
+function double(uint n)returns (uint){ 
+settedNumber(n); 
+return 2*n; 
+}
+source
+eth.compile.solidity(source)
+compiled = eth.compile.solidity(source)
+loadScript("../testDeploy.js")
+deployTest(compiled["<stdin>:test"])
+test=deployTest(compiled["<stdin>:test"])
+sblocca()
+test=deployTest(compiled["<stdin>:test"])
+test
+test.addr
+test.addr()
+getCoinbaseBalance()
+test.double.prototype
+test.addr
+test.addr()
+test.addr() + ": aoifaosi"
+ls
+test.double.call("2")
+test.addr()
+loadScript("../testDeploy.js")
+compiled = eth.compile.solidity(source)
+compiled
+sblocca()
+test=deployTest(compiled["<stdin>:test"])
+test.addr()
+test.double.call("2",function(e,r){
+console.log(e);
+console.log(r);}
+)
+test.double.call("2",function(e,r){
+console.log(e);
+console.log(r.numero);}
+)
+test.double.call("2",function(e,r){
+console.log(e);
+console.log(JSON.stringify(r));}
+)
+test.double.call("2",function(e,r){
+//console.log(e);
+console.log(JSON.stringify(r));}
+)
+test.double.call("2",function(e,r){
+//console.log(e);
+//console.log(JSON.stringify(r));}
+)
+test.double.call("2",function(e,r){
+//console.log(e);
+//console.log(JSON.stringify(r));
+}
+)
+res=test.double.call("2",function(e,r){
+//console.log(e);
+//console.log(JSON.stringify(r));
+return r;
+}
+)
+res
+JSON.stringify(res)
+var event = test.settedNumber({}, '', function(error, result){
+if (!error)
+console.log("Numero inviato: " + result.args.numero + ".\n" );
+});
+event
+test.addr
+test.addr()
+test.addr().call()
+test.addr().call("")
+test.double("2")
+test.double.call("2")
+source = "contract test{
+address public addr;
+event settedNumber(uint numero);
+function double(uint n)returns (uint){ 
+addr=msg.sender;
+settedNumber(n); 
+return 2*n; 
+}
+}"
+source = "contract test{
+address public addr;
+event settedNumber(uint numero);
+function double(uint n)returns (uint){ 
+addr=msg.sender;
+settedNumber(n); 
+return 2*n; 
+}
+source = "contract test{
+address public addr;
+event settedNumber(uint numero);
+function double(uint n)returns (uint){ 
+addr=msg.sender;
+settedNumber(n); 
+return 2*n; 
+}
+source = "contract test{ address public addr; event settedNumber(uint numero);function double(uint n)returns (uint){ addr=msg.sender;settedNumber(n); return 2*n; }}"
+compiled = eth.compile.solidity(source)
+sblocca()
+test=deployTest(compiled["<stdin>:test"])
+test.addr()
+test.double.call("2")
+test.addr()
+test.addr(0)
+test.addr(1)
+test.addr(2)
+test.addr(4)
+test.addr()
+var event = test.settedNumber({}, '', function(error, result){
+if (!error)
+console.log("Numero inviato: " + result.args.numero + ".\n" );
+});
+test.double.call("2")
+registrar
+admin.setGlobalRegistrar
+admin.setGlobalRegistrar()
+admin.setGlobalRegistrar("",eth.coinbase)
+GlobalRegistrar.at()
+miner.stop()
+getCoinbaseBalance()
+miner.start()
+net.listening
+admin.toString()
+admin.nodeInfo
+sblocca()
+miner.stop()
+miner.start(1)
+sblocca()
+importScript("../truffle/GlobalRegistrar.json")
+import("../truffle/GlobalRegistrar.json")
+loadScript("../truffle/GlobalRegistrar.json")
+loadScript("test/deployTest.js")
+loadScript("../deployTest.js")
+loadScript("../testDeploy.js")
+usefull.getCoinbaseBalance
+usefull.getCoinbaseBalance()
+usefull.deployTest(source)
+usefull.deployTest(compiled)
+compiled
+contract
+usefull.deployTest(contract["<stdin>:test"])
+miner.stop()
+loadScript("../GlobalRegistrarInit.js")
+GlobalRegistrar
+loadScript("../GlobalRegistrarInit.js")
+loadScript("../testDeploy.js")
+loadScript("../GlobalRegistrarInit.js")
+globalRegistrar.abi
+globalRegistrar.unlinked_binary
+loadScript("../deployer.js")
+deployer
+deployer.deployAbiAndCode(globalRegistrar.abi,globalRegistrar.unlinked_binary)
+miner.start(1)
+deployer.deployAbiAndCode(globalRegistrar.abi,globalRegistrar.unlinked_binary)
+sblocca()
+deployer.deployAbiAndCode(globalRegistrar.abi,globalRegistrar.unlinked_binary)
+loadScript("../deployer.js")
+loadScript("../GlobalRegistrarInit.js")
+globalRegistrar.addressDeployed
+loadScript("../deployer.js")
+deployer.getGlobalRegister()
+globalRegistrar.code.abi
+loadScript("../deployer.js")
+loadScript("../GlobalRegistrarInit.js")
+globalRegistrar.getGlobalRegister()
+loadScript("../GlobalRegistrarInit.js")
+globalRegistrar.getGlobalRegister()
+glbRegistrar = globalRegistrar.getGlobalRegister()
+glbRegistrar.add("Luca Vecchi",eth.coinbase)
+glbRegistrar.add.call("Luca Vecchi",eth.coinbase)
+glbRegistrar.add.call("Luca Vecchi",eth.coinbase,afasfas)
+glbRegistrar.add.call("Luca Vecchi",eth.coinbase," afasf a")
+glbRegistrar.getAddressContract.call()
+glbRegistrar.getAddressContract.call("Luca Vecchi")
+glbRegistrar.getAddressContract.call("Luca vecchi")
+glbRegistrar.getAddressContract.call("luca vecchi")
+glbRegistrar.getAddressContract.call("lucavecchi")
+glbRegistrar.getAddressContract.call("luca vecchi")
+glbRegistrar.add.call("lucavecchi",eth.coinbase)
+glbRegistrar.add.call(["lucavecchi",eth.coinbase])
+glbRegistrar.add.call(["lucavecchi",eth.coinbase],function(e,r){console.log(r)})
+glbRegistrar.add.call("lucavecchi",eth.coinbase,function(e,r){console.log(r)})
+glbRegistrar.getAddressContract("lucavecchi")
+glbRegistrar.getAddressContract.call("lucavecchi")
+glbRegistrar.getAddressContract.call("Luca Vecchi")
+eth.compile.solidity("../truffle/contracts/MetaCoins.sol")
+loadScript("../GlobalRegistrarInit.js")
+glb= globalRegistrar.getGlobalRegister()
+sblocca()
+glb= globalRegistrar.getGlobalRegister()
+loadScript("../GlobalRegistrarInit.js")
+sblocca()
+glb= globalRegistrar.getGlobalRegister()
+glb.add.call()
+glb.add
+glb.add()
+glb.getData
+glb.getData()
+loadScript("../GlobalRegistrarInit.js")
+sblocca()
+glb= globalRegistrar.getGlobalRegistrar()
+glb.add.sendTransaction("lucaVecchi",eth.coinbase,{from: eth.coinbase})
+sblocca()
+glb.add.sendTransaction("lucaVecchi",eth.coinbase,{from: eth.coinbase})
+glb.getAddressContract.call("lucavecchi")
+glb.getAddressContract.call("lucaVecchi")
+glb.getAddressContract.sendTransaction("lucaVecchi",{from: eth.coinbase})
+glb.getAddressContract("lucavecchi")
+glb.getAddressContract("lucaVecchi")
+eth.getBlock("pending", true).transactions
+miner.stop()
+glb.ledger(eth.coinbase)
+miner.start(1)
+glb.getAddressContract("lucavecchi")
+glb.getAddressContract("lucaVecchi")
+glb.add.sendTransaction("lucaVecchi",{from: eth.coinbase})
+glb.add.sendTransaction("lucaVecchi",eth.coinbase,{from: eth.coinbase})
+sblocca()
+glb.add.sendTransaction("lucaVecchi",eth.coinbase,{from: eth.coinbase})
+eth.getBlock("pending", true).transactions
+eth.coinbase
+glb.ledger("0x2a54983e9b648684676c4f78638654177cd4be6a")
+eth.getTransaction("0x38f4ec3d699a9dc1e5a4c8d14fe154826b58f5dedbb6f1f5a315094ad0075766")
+source = "contract test{
+address public addr;
+event settedNumber(uint numero);
+function double(uint n)returns (uint){ 
+addr=msg.sender;
+settedNumber(n); 
+return 2*n; 
+}
+source = "contract test{ address public addr; event settedNumber(uint numero);function double(uint n)returns (uint){ addr=msg.sender;settedNumber(n); return 2*n; }}"
+loadScript("../deployer.js")
+test = deployer.deployContract(eth.compile.solidity(source))
+sblocca()
+test = deployer.deployContract(eth.compile.solidity(source)["<stdin>:test"])
+loadScript("../deployer.js")
+sblocca()
+test = deployer.deployContract(eth.compile.solidity(source)["<stdin>:test"])
+test.address
+var event = test.settedNumber({}, '', function(error, result){
+if (!error)
+console.log("Numero inviato: " + result.args.numero + ".\n" );
+});
+event
+test.double.sendTransaction("2",{from:eth.coinbase})
+var eventGlb = glb.EventNewContract({},'',function(e,r){
+if(!error)
+console.log("Nuova entry : <" + r.args.name + " | " +  r.args._address +"> da : " + r.args._owner);
+}
+)
+sblocca()
+glb.add.sendTransaction("luca",eth.coinbase,{from: eth.coinbase})
+loadScript("../deployer.js")
+loadScript("../GlobalRegistrarInit.js")
+gbl = deployer.deployAbiAndCode(globalRegistrar.code.abi,globalRegistrar.code.unlinked_binary)
+sblocca()
+gbl = deployer.deployAbiAndCode(globalRegistrar.code.abi,globalRegistrar.code.unlinked_binary)
+glb.add.sendTransaction("registrar","0x42dcf37492a48d01c97462be85acde711c8c5777",{from: eth.coinbase})
+glb.getAddressContract("registrar")
+glb.getAddressContract.call("registrar")
+glb.getAddressContract.sendTransaction("registrar",{from: eth.coinbase})
+sblocca()
+glb.getAddressContract.sendTransaction("registrar",{from: eth.coinbase})
+eth.getTransaction("0x4dbd3560e2d69ce2e2157fb4fa68582c56239a5c5a49dc54dd3da1713761a92e")
+glb.getAddressContract.sendTransaction("registrar",{from: eth.coinbase})
+glb.getAddressContract.call("registrar")
+0x4dbd3560e2d69ce2e2157fb4fa68582c56239a5c5a49dc54dd3da1713761a92e
+0x4dbd3560e2d69ce2e2157fb4fa68582c56239a5c5a49dc54dd3da1713761a92
+var eventGlb = glb.EventNewContract({},'',function(e,r){
+if(!error)
+console.log("Nuova entry : <" + r.args.name + " | " +  r.args._address +"> da : " + r.args._owner);
+})
+sblocca()
+glb.add.sendTransaction("registrar","0x42dcf37492a48d01c97462be85acde711c8c5777",{from: eth.coinbase})
+glb.add.sendTransaction({"registrar","0x42dcf37492a48d01c97462be85acde711c8c5777"},{from: eth.coinbase})
+glb.add.sendTransaction(["registrar","0x42dcf37492a48d01c97462be85acde711c8c5777"],{from: eth.coinbase})
+glb.add.sendTransaction("registrar","0x42dcf37492a48d01c97462be85acde711c8c5777",{from: eth.coinbase})
+source = "pragma solidity ^0.4.8;
+contract Name2Address{
+mapping (bytes32 => N2AEntry) public hashMap;
+struct N2AEntry{
+address owner;
+address contr;
+}
+function addContract(string _name,address _contr) internal returns (bytes32 sha){
+bytes32 _sha = sha256(_name);
+hashMap[_sha].owner = msg.sender;
+hashMap[_sha].contr = _contr;
+return _sha;
+}
+function changeByName(string _str, address _contr) internal {
+bytes32 _sha = sha256(_str);
+if(hashMap[_sha].owner != msg.sender)throw;
+hashMap[_sha].contr = _contr;
+}
+}
+contract GlobalRegistrar is Name2Address{
+using Lib for string;
+event EventNewContract(string name,address _address,address _owner);
+event EventChanged(string from,string to,address contrAddress,address _owner);
+function add(string _name,address _contr){
+addContract(_name,_contr);
+EventNewContract(_name,_contr,msg.sender);
+}
+function change(string _newName, address _contr,string _pastName){
+changeByName( _newName,  _contr);
+EventChanged(_newName,_pastName,_contr,msg.sender);
+}
+function getAddressContract(string _str) constant external returns(address addressContract){
+bytes32 _sha= sha256(_str);
+return hashMap[_sha].contr;
+}
+function getOwnerOfContract(string _str) constant external returns(address addressOwner){
+bytes32 _sha= sha256(_str);
+return hashMap[_sha].owner;    
+}
+}
+source = "pragma solidity ^0.4.8;contract Name2Address{mapping (bytes32 => N2AEntry) public hashMap;struct N2AEntry{address owner;address contr;}function addContract(string _name,address _contr) internal returns (bytes32 sha){bytes32 _sha = sha256(_name);hashMap[_sha].owner = msg.sender;hashMap[_sha].contr = _contr;return _sha;}function changeByName(string _str, address _contr) internal {bytes32 _sha = sha256(_str);if(hashMap[_sha].owner != msg.sender)throw;hashMap[_sha].contr = _contr;}}contract GlobalRegistrar is Name2Address{using Lib for string;event EventNewContract(string name,address _address,address _owner);event EventChanged(string from,string to,address contrAddress,address _owner);function add(string _name,address_contr){addContract(_name,_contr);EventNewContract(_name,_contr,msg.sender);}function change(string _newName, address _contr,string _pastName){changeByName( _newName,  _contr);EventChanged(_newName,_pastName,_contr,msg.sender);}function getAddressContract(string _str) constant external returnsaddressaddressContract){bytes32 _sha= sha256(_str);return hashMap[_sha].contr;}function getOwnerOfContract(string _str) constant external returns(address addressOwner){bytes32 _sha= sha256(_str);return hashMap[_sha].owner;    }}"
+compiled= eth.compile.solidity(source)
+source ="pragma solidity ^0.4.8;contract Name2Address{mapping (bytes32 => N2AEntry) public hashMap;struct N2AEntry{address owner;address contr;}function addContract(string _name,address _contr) internal returns (bytes32 sha){bytes32 _sha = sha256(_name);hashMap[_sha].owner = msg.sender;hashMap[_sha].contr = _contr;return _sha;}function changeByName(string _str, address _contr) internal {bytes32 _sha = sha256(_str);if(hashMap[_sha].owner != msg.sender)throw;hashMap[_sha].contr = _contr;}}contract GlobalRegistrar is Name2Address{using Lib for string;event EventNewContract(string name,address _address,address _owner);event EventChanged(string from,string to,address contrAddress,address _owner);function add(string _name,address _contr){addContract(_name,_contr);EventNewContract(_name,_contr,msg.sender);}function change(string _newName, address _contr,string _pastName){changeByName( _newName,  _contr);EventChanged(_newName,_pastName,_contr,msg.sender);}function getAddressContract(string _str) constant external returns(address addressContract){bytes32 _sha= sha256(_str);return hashMap[_sha].contr;}function getOwnerOfContract(string _str) constant external returns(address addressOwner){bytes32 _sha= sha256(_str);return hashMap[_sha].owner;    }}"
+compiled= eth.compile.solidity(source)
+source = "pragma solidity ^0.4.8;contract Name2Address{mapping (bytes32 => N2AEntry) public hashMap;struct N2AEntry{address owner;address contr;}function addContract(string _name,address _contr) internal returns (bytes32 sha){bytes32 _sha = sha256(_name);hashMap[_sha].owner = msg.sender;hashMap[_sha].contr = _contr;return _sha;}function changeByName(string _str, address _contr) internal {bytes32 _sha = sha256(_str);if(hashMap[_sha].owner != msg.sender)throw;hashMap[_sha].contr = _contr;}}contract GlobalRegistrar is Name2Address{event EventNewContract(string name,address _address,address _owner);event EventChanged(string from,string to,address contrAddress,address _owner);function add(string _name,address _contr){addContract(_name,_contr);EventNewContract(_name,_contr,msg.sender);}function change(string _newName, address _contr,string _pastName){changeByName( _newName,  _contr);EventChanged(_newName,_pastName,_contr,msg.sender);}function getAddressContract(string _str) constant external returns(address addressContract){bytes32 _sha= sha256(_str);return hashMap[_sha].contr;}function getOwnerOfContract(string _str) constant external returns(address addressOwner){bytes32 _sha= sha256(_str);return hashMap[_sha].owner;    }}"
+compiled= eth.compile.solidity(source)
+loadScript("../deployer.js")
+gbl = deployer.deployContract(compiled["<stdin>:GlobalRegistrar"])
+sblocca()
+gbl = deployer.deployContract(compiled["<stdin>:GlobalRegistrar"])
+gbl.abi
+sblocca()
+gbl.add.sendTransaction("lucavecchi",eth.coinbase,{from: eth.coinbase})
+eth.getTransaction("0xfe24a2323734639ba890ed0d0be5afc82d82e6d33a7434d9e18d075da6d1bf93")
+test.addr()
+test.double.sendTransaction("4",{from: eth.coinbase})
+eth.getTransaction("0xee28c181dd0ba503fdde414537e596235ceadabb584f515fdbbb33d792ca7939")
+eth.getTransaction("0xfe24a2323734639ba890ed0d0be5afc82d82e6d33a7434d9e18d075da6d1bf93")
+gbl.getAddressContract("lucavecchi")
+gbl.address
+globalRegistrar.addressDeployed
+loadScript("../GlobalRegistrarInit.js")
+globalRegistrar.addressDeployed
+gbl2 = deployer.deployAbiAndCode(globalRegistrar.code.abi,globalRegistrar.addressDeployed)
+sblocca()
+gbl2 = deployer.deployAbiAndCode(globalRegistrar.code.abi,globalRegistrar.addressDeployed)
+getCoinbaseBalance
+getCoinbaseBalance()
+eth.gasPrice
+eth.gasPrice=200
+eth.getGasPrice
+eth.getGasPrice()
+eth.getGasPrice
+eth.gasPrice
+miner.setGasPrice(200)
+eth.getGasPrice
+eth.gasPrice
+miner.setGasPrice(20000)
+eth.gasPrice
+miner.setGasPrice
+miner.setGasPrice("20000")
+eth.gasPrice
+gbl2 = deployer.deployAbiAndCode(globalRegistrar.code.abi,globalRegistrar.addressDeployed)
+loadScript("../deployer.js")
+loadScript("../GlobalRegistrarInit.js")
+gbl2 = deployer.deployAbiAndCode(globalRegistrar.code.abi,globalRegistrar.addressDeployed)
+sblocca()
+gbl2 = deployer.deployAbiAndCode(globalRegistrar.code.abi,globalRegistrar.addressDeployed)
+miner.start(1)
+var gasEstimate = web3.eth.estimateGas({data: source});
+source
+source="contract A { }"
+var gasEstimate = web3.eth.estimateGas({data: source});
+var gasEstimate = web3.eth.estimateGas({data: "0x6060604052341561000c57fe5b5b610a358061001c6000396000f30060606040526000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631bd065a4146100675780632bffc7ed14610123578063aa475f9f1461019c578063d1d895cb14610233578063e7dc4d1f1461029e575bfe5b341561006f57fe5b610121600480803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509190803573ffffffffffffffffffffffffffffffffffffffff1690602001909190803590602001908201803590602001908080601f01602080910402602001604051908101604052809392919081815260200183838082843782019150505050505091905050610309565b005b341561012b57fe5b61019a600480803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509190803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506104a6565b005b34156101a457fe5b6101be6004808035600019169060200190919050506105c8565b604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019250505060405180910390f35b341561023b57fe5b61025c6004808035906020019082018035906020019190919290505061062c565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34156102a657fe5b6102c7600480803590602001908201803590602001919091929050506106be565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6103138383610750565b7f77a63af0ac69008c8cba0dba9f183436b034fe5b2b4597e2bb60de492ac441e7838284336040518080602001806020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018381038352878181518152602001915080519060200190808383600083146103ef575b8051825260208311156103ef576020820191506020810190506020830392506103cb565b505050905090810190601f16801561041b5780820380516001836020036101000a031916815260200191505b50838103825286818151815260200191508051906020019080838360008314610463575b8051825260208311156104635760208201915060208101905060208303925061043f565b505050905090810190601f16801561048f5780820380516001836020036101000a031916815260200191505b50965050505050505060405180910390a15b505050565b6104b082826108b7565b507fc763c5fa21df7ecfa291270a6af3a86d20f242bc58a9774ec2bcc4f7cf64a67082823360405180806020018473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001828103825285818151815260200191508051906020019080838360008314610588575b80518252602083111561058857602082019150602081019050602083039250610564565b505050905090810190601f1680156105b45780820380516001836020036101000a031916815260200191505b5094505050505060405180910390a15b5050565b60006020528060005260406000206000915090508060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905082565b6000600060028484600060405160200152604051808383808284378201915050925050506020604051808303816000866161da5a03f1151561066a57fe5b505060405180519050905060006000826000191660001916815260200190815260200160002060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1691505b5092915050565b6000600060028484600060405160200152604051808383808284378201915050925050506020604051808303816000866161da5a03f115156106fc57fe5b505060405180519050905060006000826000191660001916815260200190815260200160002060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1691505b5092915050565b60006002836000604051602001526040518082805190602001908083835b60208310610791578051825260208201915060208101905060208303925061076e565b6001836020036101000a0380198251168184511680821785525050505050509050019150506020604051808303816000866161da5a03f115156107d057fe5b50506040518051905090503373ffffffffffffffffffffffffffffffffffffffff1660006000836000191660001916815260200190815260200160002060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff161415156108545760006000fd5b8160006000836000191660001916815260200190815260200160002060010160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505b505050565b600060006002846000604051602001526040518082805190602001908083835b602083106108fa57805182526020820191506020810190506020830392506108d7565b6001836020036101000a0380198251168184511680821785525050505050509050019150506020604051808303816000866161da5a03f1151561093957fe5b50506040518051905090503360006000836000191660001916815260200190815260200160002060000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508260006000836000191660001916815260200190815260200160002060010160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508091505b50929150505600a165627a7a72305820e73ff933dec2d4aa2e4237eaa28e7a88c53fc752201f203857fd2372370be3800029"});
+eth.estimateGas({data: "0x6060604052341561000c57fe5b5b610a358061001c6000396000f30060606040526000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631bd065a4146100675780632bffc7ed14610123578063aa475f9f1461019c578063d1d895cb14610233578063e7dc4d1f1461029e575bfe5b341561006f57fe5b610121600480803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509190803573ffffffffffffffffffffffffffffffffffffffff1690602001909190803590602001908201803590602001908080601f01602080910402602001604051908101604052809392919081815260200183838082843782019150505050505091905050610309565b005b341561012b57fe5b61019a600480803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509190803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506104a6565b005b34156101a457fe5b6101be6004808035600019169060200190919050506105c8565b604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019250505060405180910390f35b341561023b57fe5b61025c6004808035906020019082018035906020019190919290505061062c565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34156102a657fe5b6102c7600480803590602001908201803590602001919091929050506106be565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6103138383610750565b7f77a63af0ac69008c8cba0dba9f183436b034fe5b2b4597e2bb60de492ac441e7838284336040518080602001806020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018381038352878181518152602001915080519060200190808383600083146103ef575b8051825260208311156103ef576020820191506020810190506020830392506103cb565b505050905090810190601f16801561041b5780820380516001836020036101000a031916815260200191505b50838103825286818151815260200191508051906020019080838360008314610463575b8051825260208311156104635760208201915060208101905060208303925061043f565b505050905090810190601f16801561048f5780820380516001836020036101000a031916815260200191505b50965050505050505060405180910390a15b505050565b6104b082826108b7565b507fc763c5fa21df7ecfa291270a6af3a86d20f242bc58a9774ec2bcc4f7cf64a67082823360405180806020018473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001828103825285818151815260200191508051906020019080838360008314610588575b80518252602083111561058857602082019150602081019050602083039250610564565b505050905090810190601f1680156105b45780820380516001836020036101000a031916815260200191505b5094505050505060405180910390a15b5050565b60006020528060005260406000206000915090508060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905082565b6000600060028484600060405160200152604051808383808284378201915050925050506020604051808303816000866161da5a03f1151561066a57fe5b505060405180519050905060006000826000191660001916815260200190815260200160002060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1691505b5092915050565b6000600060028484600060405160200152604051808383808284378201915050925050506020604051808303816000866161da5a03f115156106fc57fe5b505060405180519050905060006000826000191660001916815260200190815260200160002060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1691505b5092915050565b60006002836000604051602001526040518082805190602001908083835b60208310610791578051825260208201915060208101905060208303925061076e565b6001836020036101000a0380198251168184511680821785525050505050509050019150506020604051808303816000866161da5a03f115156107d057fe5b50506040518051905090503373ffffffffffffffffffffffffffffffffffffffff1660006000836000191660001916815260200190815260200160002060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff161415156108545760006000fd5b8160006000836000191660001916815260200190815260200160002060010160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505b505050565b600060006002846000604051602001526040518082805190602001908083835b602083106108fa57805182526020820191506020810190506020830392506108d7565b6001836020036101000a0380198251168184511680821785525050505050509050019150506020604051808303816000866161da5a03f1151561093957fe5b50506040518051905090503360006000836000191660001916815260200190815260200160002060000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508260006000836000191660001916815260200190815260200160002060010160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508091505b50929150505600a165627a7a72305820e73ff933dec2d4aa2e4237eaa28e7a88c53fc752201f203857fd2372370be3800029"})
+eth.getBlockNumber(
+)
+eth.getBlockNumber
+eth.getBlock(4000)
+miner.start(1)
+net.listening
+net.getListening
+net.getListening()
+eth.mining
+admin.nodeInfo
+admin.getPeers
+admin.getPeers()
+admin.getPeers(0)
+admin.getPeers
+admin.peers
+eth.accounts
+admin.nodeInfo()
+admin.nodeInfo
+miner.start(1)
+net.listening
+admin.peers
+miner.stop()
+glb = globalRegistrar.getGlobalRegistrar()
+admin.addPeer("enode://ac8260806b4a7a62b778a56d27f1421ebeba4adebd41613447df0ed7e11b074c9cf22be18f973330924404777da93bf729b33b240e8da0a06f24b4c03dcc3e5e@[::]:30302")
+glb.getAddressContract("digichain")
+eth.coinbase
+loadScript("jsScript/deployer.js")
+loadScript("build/compiled.js")
+digichain = deployer.getIstanceFromAbiAndAddress(compiled.contracts["Digichain.sol:Digichain"],glb.getAddressContract("digichain"))
+digichain = deployer.getIstanceFromAbiAndAddress(compiled.contracts["Digichain.sol:Digichain"].abi,glb.getAddressContract("digichain"))
+digichain.length()
+compiled.contracts
+compiled.contracts["Digichain.sol:Digichain"]
+compiled.contracts["Digichain.sol:Digichain"].abi
+JSON.parse(compiled.contracts["Digichain.sol:Digichain"].abi)
+loadScript("jsScript/deployer.js")
+digichain = deployer.getIstanceFromAbiAndAddress(compiled.contracts["Digichain.sol:Digichain"].abi,glb.getAddressContract("digichain"))
+digichain.length
+digichain.length()
+sblocca()
+eth.coinbase
+deployer.getCoinbaseBalance()
+loadScript("jsScript/deployer.js")
+deployer.getCoinbaseBalance()
+loadScript("jsScript/deployer.js")
+deployer.getCoinbaseBalance()
+sblocca()
+digichain.compra.sendTransaction("0",{from:eth.coinbase, value: 1000000*5})
+eth.getTransaction("0x15d249768d5265e69f78b7611d9f9e06ba9a5675d4d15363b828751e34a99c86")
+miner.start(1)
+digichain.contratti(eth.coinbase)
+eth.getTransaction("0x15d249768d5265e69f78b7611d9f9e06ba9a5675d4d15363b828751e34a99c86")
+digichain.contratti(eth.coinbase)
+digichain.getAmountToRefound(eth.coinbase)
+digichain.contratti(eth.coinbase)
+eth.coinbase
+digichain.contratti(eth.coinbase)
+digichain.rinuncia.sendTransaction({from: eth.coinbase,gas: 4000000})
+sblocca()
+digichain.rinuncia.sendTransaction({from: eth.coinbase,gas: 4000000})
+digichain.contratti(eth.coinbase)
+digichain.getAmountToRefound(eth.coinbase)
+digichain.getOwner(0)
+digichain.creaOpera("prova2","0","1000000",{from: eth.coinbase,gas: 6000000})
+sblocca()
+digichain.creaOpera("prova2","0","1000000",{from: eth.coinbase,gas: 6000000})
+digichain.creaOpera("prova2","0","1000000",{from: eth.coinbase,gas: 4000000})
+digichain.length()
+deployer.getCoinbaseBalance()
+deployer.getCoinbaseBalance().balance
+miner.stop()
+admin.addPeer("enode://ac8260806b4a7a62b778a56d27f1421ebeba4adebd41613447df0ed7e11b074c9cf22be18f973330924404777da93bf729b33b240e8da0a06f24b4c03dcc3e5e@[::]:30302")
+admin.peers
+eth.getTransaction("0x59e831cafae1655ab9d741f0f1677f0d500f0cd3d14fe1430b7c4834c599b85d")
+eth.blockNumber
+glb = globalRegistrar.getGlobalRegistrar()
+digichain.creaOpera.sendTransaction("libro1","0","1000000",{from: eth.coinbase,gas: 4000000})
+digichain = deployer.getIstanceFromAbiAndAddress(compiled.contracts["Digichain.sol:Digichain"].abi, glb.getAddressContract("digichain"))
+exity
+loadScript("build/compiled.js")
+compiled
+digichain = deployer.getIstanceFromAbiAndAddress(compiled.contracts["Digichain.sol:Digichain"].abi, glb.getAddressContract("digichain"))
+digichain.length()
+digichain.opere(0)
+digichain.opere(1)
+digichain.opere(2)
+deployer.getCoinbaseBalance()
+digichain.opere(2)
+sblocca()
+digichain.compra.sendTransaction("2",{from: eth.coinbase, gas: 3000000, value: 50000000})
+eth.getTransaction("0x1501d4c5553284228726560b9f8202868316be8376dfc4831a35a1095bbbe586")
+digichain.compra.sendTransaction("2",{from: eth.coinbase, gas: 30000000, value: 50000000})
+sblocca()
+digichain.compra.sendTransaction("2",{from: eth.coinbase, gas: 30000000, value: 50000000})
+digichain.compra.sendTransaction("2",{from: eth.coinbase, gas: 4000000, value: 50000000})
+eth.getTransaction("0x579ef5a3c1a72751dca72533084d8a1a4f43b9668d59dbfbc36cae92f91e4a32")
+digichain.get(2)
+digichain.opere(2)
+miner.stop()
+admin.nodeInfo
+eth.getBlock(0)
+admin.peers
+admin.nodeInfo
+admin.peers
+admin.nodeInfo
+admin.addPeer("enode://9bec089d2703b1ad63607d39169376f1b51e03c01735605b1ddcaa54b40bf8324da8d4d67f9f16bc70fbae230ec8c8513fda61f4e718b9ea98dfa3c7fd9c44ea@192.168.1.34:30303")
+admin.peers
+admin.addPeer("enode://9bec089d2703b1ad63607d39169376f1b51e03c01735605b1ddcaa54b40bf8324da8d4d67f9f16bc70fbae230ec8c8513fda61f4e718b9ea98dfa3c7fd9c44ea@[::]:30303")
+admin.peers

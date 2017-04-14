@@ -1,0 +1,598 @@
+%\todo{nota bene: i miei commenti lasciali nel testo a futura memoria, quando li assorbi li ``commenti via'' con \%}
+
+%\todo{ok struttura, io preferisco prima i principi generali (architetturali) avulsi dall'implementazione, i concetti ``matematici'' (firme, critto, proof-of-work, etc.) e poi ti cali nella situazione attuale, sia della blockchain originale, sia delle proposte alternative}
+
+%\todo{mi raccomando: mettere schemi, formule, immagini, BIBLIOGRAFIA (citata! e usa i .bib, non inline, google scholar ti genera direttamente i bibitem)}
+
+%\todo{aggiungo un paio di package utili}
+
+\section{Inquadramento generale}
+%\todo{atrent leggere}
+\iffalse
+	\subsection{Introduzione alla blockchain}
+	\begin{enumerate}
+		\item \checkbox Cos'è (definizione)
+		\item \checkbox Cosa sono i digital asset
+		\item \uncheckedbox Cos'è uno smart contract
+		\item \checkbox Leggera introduzione sulla terminologia di transazoni blocco per poter capire gli argomenti
+		\item \uncheckedbox Trust/trustless si basa tutto su questo: https://aeon.co/essays/trust-the-inside-story-of-the-rise-and-fall-of-ethereum
+		\item \checkbox Che possibilità può offrire la blockchain
+		\item \uncheckedbox http://blog.avalanchain.com/post/rationales-for-blockchain-in-enterprise-applications
+	\end{enumerate}
+\fi
+	La blockchain è un database immutabile, distribuito, protetto da crittografia e accettato tramite consenso da un sistema decentralizzato di peer. La natura crittografica della blockchain permette di costruire particolari meccanismi e automazioni, tra cui gli smart contract, che consentono di trasferire da una persona ad un' altra digital asset\cite{peters2016understanding}. 
+	Questi ultimi sono beni su cui è possibile esercitare un diritto di utilizzo come lo si può fare nel caso di canzoni, film, segni distintivi, e-mail e tutto ciò che può essere digitalizzato.
+	I digital asset sono trasferibili tramite l'esecuzione di una transazione da parte di un nodo che comunica col sistema. 
+	La transazione non avviene tramite una terza parte fidata (come può essere una banca), ma viene presa in carico, anche nello stesso istante, da uno o più nodi, indipendenti l'uno dall'altro, chiamati miner che verificano la sua validità tramite precise regole condivise chiamate regole di consenso. 
+	%Magari non trattare qua in generale il mining e spiegarlo più approfonditamente in un momento successivo sarebbe meglio.
+	Le transazioni vengono verificate ed accorpate con altre transazioni e dati informativi nel cosiddetto blocco.
+	Il processo di costruzione del blocco viene detto mining ed ogni nuovo blocco creato contiene l'hash di quello direttamente precedentemente così che tutti i blocchi validati dipendano da quello precedente.
+	Il mining è computazionalmente dispendioso e la sua complessità dipendente in modo diretto dalla potenza di calcolo di tutti i nodi della rete così che, la ricostruzione di tutta la catena di blocchi (blockchain) con l'obiettivo di modificare una transazione, divenga un processo troppo lungo e dispendioso da attuare.
+	Il registro pubblico di tutti i blocchi è condiviso tramite consenso da tutti i miner superando i limiti di sicurezza imposti dai sistemi centralizzati e l' utilizzo dello stato dell'arte di algoritmi crittografici, di digital signature ECDSA e di hashing come SHA permette di operare in modo trustless.
+	
+	Da sempre, nel mercato i rapporti commerciali tra due individui si basano sul rispetto di alcune regole e leggi, la cui tutela viene garantita da terze parti, ossia i giudici. Per quanto riguarda la blockchain, invece, emerge il concetto di trustless, che consiste nell'assenza di un garante fidato, come può essere un giudice o una Certification Autority (CA), che assicuri l'identità delle parti. Infatti è l'architettura della blockchain stessa, che attraverso protocolli crittografici, permette la gestione sicura delle transazioni\footnote{ \url{https://rctom.hbs.org/submission/coding-trust-blockchain-contracts- and-the-law-of-the-future/}}.  
+	Bitcoin e tutte le altcoin\footnote{ \url{https://www.cryptocoinsnews.com/altcoin/} } derivate dalla prima permettono di costruire una vasta tipologia di transazioni programmabili: si possono trasferire criptomonete in base al destinatario (o meglio la sua chiave pubblica), regalare il denaro al primo che lo reclama, bruciare i coin e persino eseguire del codice all'interno di esse. Questi sono solo alcune funzionalità di base della blockchain che verranno studiate nel corso di questa trattazione ma molte altre possibilità saranno esplorate.
+	
+	\subsection{Cenni teorici}
+
+	%Forse è meglio discutere di questi temi man mano che ne parlo distribuendoli negli altri sottocapitoli per evitare di renderlo un elenco fine a se stesso?
+\iffalse
+\begin{enumerate}
+	\item \uncheckedbox Sistema distribuito, decentralizzato centralizzato.\textit{(forse non va messo qua)}
+	
+	\item \uncheckedbox Perchè usare un sistema decentralizzato per un' applicazione distribuita ? esempio web 3.0\textit{(magari ricondursi solo ad una leggera infarinatura per poi spiegarlo nei cenni teorici cosa sono i sistemi distr,decentr,centr...)}
+	
+	\item \uncheckedbox cosa risolve? qual'è il problema? 
+	
+	\item \uncheckedbox Curve ellittiche, 
+	\item \uncheckedbox teorema - consenso
+	
+	\item \uncheckedbox blockchain
+	
+	\item \uncheckedbox Hard fork, soft fork 
+	
+	\item \uncheckedbox funzioni hash
+	
+\end{enumerate}
+\fi
+\iffalse
+	\begin{enumerate}
+		\item \uncheckedbox Sistema distribuito, decentralizzato centralizzato.\textit{(forse non va messo qua)}
+		
+		\item \uncheckedbox Perchè usare un sistema decentralizzato per un' applicazione distribuita ? esempio web 3.0 ed Ethereum \textit{(magari ricondursi solo ad una leggera infarinatura per poi spiegarlo nei cenni teorici cosa sono i sistemi distr,decentr,centr...)}
+		
+
+		\item \uncheckedbox blockchain
+
+		\item \uncheckedbox \textbf{SICURO} spostare la trattazione formale generale della blockchain da Funzionamento Ethereum a qua.
+	\end{enumerate}
+\fi	
+	\subsubsection{Paxos e il consenso}
+	
+	Uno dei problemi generali dei sistemi distribuiti o decentralizzati basati sullo scambio di messaggi è la generazione del consenso, senza di esso guasti, modifica e perdita di messaggi possono portare il sistema ad uno stato inconsistente. Nella blockchain senza il consenso non è possibile raggiungere la centralizzazione logica perseguendo la decentralizzazione architetturale, cioè un unico database replicato in più nodi. 
+	Il protocollo \textit{Paxos} venne pubblicato nel 1990 da Leslie Lamport e rappresenta uno dei primi protocolli di consenso distribuito di sistemi soggetti a guasti(fault-tolerant)\cite{lamport2001paxos}. Altre soluzioni sono stato ideate nel passato, ma Paxos rappresenta un punto fondamentale per capire le problematiche e le soluzioni da adottare per costruire un algoritmo di consenso distribuito. In parte la tecnologia blockchain si basa sulle problematiche  esposte in questo sottocapitolo, ma introduce soluzioni aggiuntive per implementare le stesse funzionalità di Paxos agendo in un ambiente \textit{trustless} grazie alla crittografia.
+	%https://www.microsoft.com/en-us/research/publication/part-time-parliament/
+	
+	In un sistema asincrono basato sullo scambio di messaggi non esiste alcun algoritmo deterministico in grado di garantire il raggiungimento del consenso anche nel caso del fallimento di un solo unico nodo\cite{fischer1985impossibility}.
+	Nonostante l'impossibilità di garantire il consenso, Paxos provvede a raggiungere la consistenza delle informazioni, a fronte del blocco del progresso del sistema vista l'impossibilità di tutelare l'operatività dei nodi.Introduciamo un modello semplificato rispetto alla trattazione originale di Paxos e andiamo a definire i meccanismi generali che permettono l'implementazione dell'algoritmo.
+	 
+	\iffalse
+	I matematici dell’isola di Paxos elaborarono un complesso sistema per garantire consistenza e progresso al parlamento.
+	Tuttavia questo meccanismo aveva un punto di debolezza relativamente all’elezione dei nuovi membri del parlamento, che avveniva utilizzando le regolari procedure del parlamento.
+	Un giorno, a causa di un errore, fu passata una legge che asseriva che gli unici membri del parlamento erano dei marinai periti in un incidente navale.
+	Da quel momento il parlamento fu abbandonato e la civiltà di Paxos tramontò rapidamente, finchè un generale di nome Λαμπσων prese possesso dell’isola con un colpo di stato instaurando una dittatura militare che pose fine a secoli di progresso governativo.
+	\fi
+
+	
+	Definiamo un modello client-server in cui abbiamo dei nodi che possono svolgere la funzione di client (proposer) o server(acceptor) e la comunicazione tra di essi è basata sullo scambio di messaggi. La rete inoltre può essere soggetta a fault dei singoli nodi nonchè modifica, ritardi e perdita dei messaggi scambiati dai partecipanti. Se l'integrità dei messaggi può essere garantita attraverso meccanismi (crc, parity-bit) il fault dei singoli nodi e la perdita dei messaggi non può essere evitata se non tramite gli acknowledgement dei singoli messaggi.Purtroppo anche in quest'ultimo caso non è possibile garantire per un messaggio spedito $m$ che il relativo acknowledgement, che è un messaggio a sua volta, non sia soggetto a perdita.
+	
+	%Model 15.4 (message loss). In the message passing model with message loss, for any specific message, it is not guaranteed that it will arrive safely at the	receiver.
+	
+	%allora introduciamo gli acknolegment
+	
+	Quindi si presuppone che, nel seguente modello, sia presente un protocollo di trasporto affidabile come lo è \textit{TCP}, formato da numeri di sequenza e timer, che permette di costruire la base di un protocollo di trasmissione affidabile tra nodo e nodo senza poter però garantire l'invio di messaggi a causa della rete sottostante.
+	
+
+	
+	Consideriamo un sistema composto da $N$ client e $M$ server, nel quale gli $N$ client vogliono eseguire dei comandi $c$ su tutti gli $M$ server attraverso l'invio di un messaggio $execute(c)$. Se assumiamo il caso più piccolo nel quale due clienti $u_1$ ed $u_2$, che inviano rispettivamente $execute(c)$ ed $execute(c')$ dove $c\not=c'$, basta che uno solo tra gli $M$ server riceva i comandi nel'ordine sbagliato per produrre stati inconsistenti.
+	
+	\iffalse 
+	Theorem 15.7: Se consideriamo il sistema formato da n client ed m server nel modello che prevede ritardi di messaggio, se uno degli m server riceve i comandi nel'ordine sbagliato può produrre stati inconsistenti.
+	
+	Dimostrazione: Assumiamo di avere due clienti $u_1$ ed $u_2$ e due server $s_1$ e $s_2$. Entrami i client invocano il comando di aggiornare una variabile $x$ su un server, inizializzata $x\equiv0$. Il client $u_1$ invia il comando $x = x + 1$ e il client $u_2$ invia $x = 2 · x$.
+	I client inviano il messaggio allo stesso momento ma a causa del modello (che può essere determinato dalla diversità nella posizione geografica dei nodi) $s_1$ riceve prima il messaggio da $s_1$ e poi da $s_2$ raggingendo lo stato finale con $x = (0 + 1) · 2 = 2$ e $s_2$ invece il contrario computando $x = (0 · 2) + 1 = 1$;
+	\fi
+	
+	Infatti condizione fondamentale perchè il sistema sia in uno stato consistente è che venga rispettata la \textit{replicazione di stato}. La replicazione di stato di un insieme di nodi avviene quando tutti i nodi del set, preso in considerazione, sono nel medesimo stato $S$ ed eseguendo, nello stesso ordine, una sequenza (potenzialmente infinita) di comandi $c_1, ...,c_n$ raggiungono tutti il medesimo nuovo stato $S'$.
+	Questa proprietà è fondamentale nei sistemi distribuiti e sia Paxos che la blockchain propongono diversi metodi che permettono il raggiungimento della replicazione dello stato.
+	
+	Non è possibile ideare un algoritmo che permetta il raggiungimento del consenso dei nodi in un sistema fault-tolerant che implementi una forma di lock o una soluzione centralizzata che gestisca il proseguimento del processo. 
+	
+	Nel primo caso possiamo immaginare che il client che possiede il lock, qualunque sia il modo in cui l'abbia ottenuto, vada in crash e se il sistema non prevede altre forme di protezione è in deadlock. Il secondo invece introduce un nodo proxy che gestisce i messaggi per conto dei client introducendo un single-poit-of-failure.
+		
+	\iffalse
+	Visto che il problema è la sincronizzazione degli stati dei server aggiungiamo, come se fossimo in un'architettura master-slave, un nuovo nodo il Serializer che riceve la sequenza dei comandi e li inoltra uno alla volta ai server attendendo l'ack da essi e una volta ricevuti notifica l'ack del comando al client che ha fatto partire il comando.
+	Qui introduciamo un singolo point-of-failure e un possibile approcio per distribuire le operazioni fatte dal serializer è quello di introdurre il locking o mutua esclusione dell'invio dei comandi.
+	\fi
+	
+	Per presentare l'algoritmo di Paxos introduciamo una nuova definizione:
+	\textit{ticket}.
+	Un ticket è una forma debole di lock dotato di un identificativo crescente e delle seguenti funzionalità:
+	\begin{description}
+		\item[Ristampabile]: Un server può fornire un ticket, anche nel momento in cui un ticket sia già stato fornito e non restituito.
+		\item[Scadenza]: Se un client invia un messaggio ad un server utilizzando un ticket $t$ precedentemente acquisito, il server accetterà $t$ se e solo se esso è il ticket generato più recentemente.
+	\end{description}
+
+	Il crash di un client ora, rispetto alla semplice mutua esclusione mediante lock, non priva gli altri nodi della possibilità di riservare risorse, visto che ognuno può richiedere un nuovo ticket valido.
+	
+	
+	Introduciamo una nuova funzionalità che consente di determinare se la maggioranza dei nostri ticket sia valida.
+	
+	Il server oltre a tenere in memoria il ticket più recente notifica ad ogni client l'eventuale comando che deve essere confermato per l'esecuzione. Il client $u_2$ che ha ottenuto un nuovo ticket $t_2$ e vuole fare lo store del proprio comando $c_2$, prima interroga il server e se esso segnala che è in attesa del messaggio d'esecuzione per $c_1$ associato al ticket $t_1$, dove $t_2 \geq t_1$, allora $u_2$ piuttosto che tentare di far eseguire $c_2$ contribuirà all'esecuzione di $c_1$. Entrambi i nodi, quindi, provano ad eseguire prima $c_1$ e successivamente $c_2$ ottenendo così la replicazione dello stato. I client quindi supporteranno sempre il comando associato al ticket più recente salvato in modo da conseguire la maggioranza. 
+	
+
+%devo formattarlo bene
+
+\begin{algorithm*}\label{alg:paxos}
+	\caption{Paxos}	
+	Inizializzazione:
+	\begin{multicols}{2}
+		\begin{algorithmic}
+			\STATE{\textbf{Client}}
+			\STATE{$t=0$}
+			\STATE{$c=currentCommand$}
+		\end{algorithmic}
+		\columnbreak
+		\begin{algorithmic}
+			\STATE{\textbf{Server}}
+			\STATE{$C = \varnothing$}
+			\STATE{$Tmax = 0$}
+		\end{algorithmic}
+	\end{multicols}
+	
+	Fase 1:
+	\begin{multicols}{2}
+		\begin{algorithmic}
+			\STATE{creo $t=t+1$}
+			\STATE{chiedo conferma al server per $t$}
+		\end{algorithmic}
+		\columnbreak
+		\begin{algorithmic}
+			\STATE{}
+			\STATE{}
+			\IF{ $t > Tmax$ } 
+			\STATE{ $Tmax = t$ } 
+			\STATE{ Invia a client ok($Tmax$,$C$) }
+			\ENDIF			
+		\end{algorithmic}
+	\end{multicols}
+	Fase2:
+	\begin{multicols}{2}
+		\begin{algorithmic}
+			\IF{la maggioranza ha risposto $ok$} \STATE{Prendi (Tstore,C) con Tstore più alto}
+			\IF{$Tstore > 0$} \STATE{$c=C$}
+			\ENDIF
+			\STATE{invia propose(t,c) alla maggioranza}
+			\ENDIF
+		\end{algorithmic}
+		\columnbreak
+		\begin{algorithmic}
+			\IF{if $t=Tmax$} \STATE{ $C=c$} \STATE{$Tstore=t$} \STATE{Rispondi $success$ }
+			\ENDIF
+		\end{algorithmic}
+	\end{multicols}
+	
+	Fase 3:
+	\begin{multicols}{2}
+		\begin{algorithmic}
+			\IF{la maggioranza ha risposto $success$ } \STATE{invia $execute(c)$ a tutti i server}	
+			\ENDIF
+		\end{algorithmic}
+		\columnbreak
+		\begin{algorithmic}
+			\STATE{}
+			\STATE{}
+		\end{algorithmic}
+	\end{multicols}
+
+	\end{algorithm*}
+
+		
+	Un client può tornare alla fase 1 in qualsiasi punto dell'algoritmo rendendo indipendente dai tempi o timeout la correttezza dell'algoritmo, ovviamente può essere aggiunto un timer random per ridurre la contesa di due tentativi consecutivi da parte dei client.
+	E' importante notare che nessun nodo nella fase 2 ha modo di decidere se il proprio comando o quello più recente inviato dal server debbano essere proposti in modo tale da imporre il client a contribuire a portare a termine l'esecuzione del comando in tutti i nodi.\\
+	
+	
+	%\textbf{Lemma}: chiamiamo il messaggio inviato dal client $propose(t,c)$ come la proposta per (t,c). Una proposta per (t,c) viene scelta se è contenuta nella maggioranza dei server. Per ogni $propose(t',c')$ nonostante $t'>t$  conterrà $c'=c$, se sarà stata scelta $propose(t,c)$.Dimostrazione: ogni comando $c$ è identificato univocamente dal relativo ticket $\sigma$. Assumiamo che almeno $propose(t',c')$ nonostante $t'>t$  conterrà $c'\not=c$
+	
+	Il teorema fondamentale che sta alla base dell'algoritmo di Paxos è il seguente:
+	se un comando $c$ è preso in esecuzione da alcuni server, tutti i server eseguono $c$.
+	
+	Dato il messaggio $propose(t,c)$ inviato dal client, definito come la proposta (t,c) per l'esecuzione del comando $c$ identificato univocamente dal ticket $t$. Assumendo un nodo che vuole eseguire un $c'\not=c$, alla fine dell'algoritmo si troverà ad inviare $propose(t',c')$ con $t'>t$ e $c'=c$ ed il server aggiornerà quindi la proposta iniziale (t,c)  ad un ticket più recente memorizzando (t',c). 
+	
+	Una volta che una proposta per $c$ è stata scelta ogni seguente proposta conterrà il comando $c$ fino alla sua esecuzione. Visto che esattamente il primo messaggio $propose(t,c)$ ha generato la proposta (t,c), ogni altro messaggio seguente conterrà il comando $c$. Quindi visto che verranno spedite solo proposte per il singolo comando $c$ e dato che i client, spediranno il messaggio $execute(c)$ solo quando vedranno che la maggioranza dei server è coerente con il comando, ogni server eseguirà il comando $c$.
+	
+	\iffalse
+	Basti pensare che se due nodi $u_1$ e $u_2$ appartenenti a due insiemi $S_1$ e $S_2$ tali che esiste almeno un $s$ e $s \in S_1 \cap S_2$ allora si stabilisce la maggioranza di $S_1 U S_2$.\fi
+
+	Può essere dimostrato che la fase 2 dell’algoritmo ha il minor costo possibile per un algoritmo di consenso in presenza di fallimenti. In altri termini, Paxos può essere considerato l’ottimo.\cite{keidar2001cost}	
+	
+	Paxos non permette di perseguire la decisione maggioritaria dei client se la metà o più dei server va in crash.  
+	
+	Il consenso rappresenta il più grande denominatore dei problemi di accordo come il broadcast atomico, l'elezione del leader, la consistenza dei dati e il raggiungimento di uno stato globale.
+	
+	Il sistema di Lamport però si basa sulla fiducia tra le entità coinvolte nella proposta ed esecuzioni di comandi che può portare all'adozione di soluzioni centralizzate.
+	
+	La blockchain, basandosi sulla crittografia, introduce una soluzione elegante per il problema del trust nei sistemi rimuovendo completamente l'uso di terze parti per l'autenticazione.
+	Essa porta a nuove possibilità potendo specificare dinamicamente nelle transazioni nuove regole piuttosto. La blockchain permette alle entità di raggiungere il consenso e, sulla base del consenso e delle transazioni precedenti, attuare decisioni autonome sulle nuove transazioni che verrano.
+	
+	\subsubsection{Blockchain, un sistema distribuito e decentralizzato}
+	
+	
+	Prima di tutto chiariamo il concetto di sistema: 
+	
+	\begin{description}
+		\item[Sistema]: è un insieme di componenti interconnesse che presentano un comportamento noto attraverso un'interfaccia con l'ambiente esterno\footnote{http://web.mit.edu/6.033/www/lec/s01.pdf}.
+	\end{description}
+	
+	Possiamo trovare sistemi centralizzati, decentralizzati e distribuiti, ma spesso non riusciamo, come nel caso dei sistemi basati su blockchain, a racchiudere una tecnologia in una sola di queste categorie.
+	
+	
+	Le architetture dei sistemi possono avere dei punti in comune ed essere visti o sotto l'aspetto della topologia del sistema o ragionando sulle relazioni che intercorrono tra gli elementi del sistema stesso.
+	
+	A seconda della topologia di questi sistemi, quindi della coppia composta dagli insiemi dei nodi e delle interconnessioni tra di essi, possiamo andare a distinguere diverse architetture: centralizzata, decentralizzata e distribuita.
+	
+	Nell' architettura centralizzata, come nel caso specifico di un'implementazione di un'applicazione client-server, un unico nodo è il centro del sistema al quale tutti gli altri nodi si connettono e scambiano messaggi attraverso esso.
+	In questa situazione l'architettura ha seri problemi riguardanti la disponibilità: aggiornamenti, attacchi e malfunzionamenti dell' unico nodo centrale, comprometterebbero l'applicazione per via del \textit{One-Point-of-Failure}. Inoltre il server diventa la principale fonte di bottleneck per l'applicazione a causa della frequente impossibilità di aumentare linearmente le prestazioni.	
+	I sistemi centralizzati non verranno quindi presi in considerazione non sono idonei a ospitare un'applicazione fault-tolerante come la blockchain.
+	
+	
+	Un sistema decentralizzato è realizzato mediante una gerarchia dei nodi tra i quali troviamo tanti sottoinsiemi connessi tra di loro dove si trovano nodi periferici connessi ad un nodo centrale e quest'ultimo, a sua volta, comunica con altri nodi centrali. Oltre alla diversa topologia, la caratteristica che distingue i sistemi decentralizzati rispetto a quelli centralizzati è che i nodi periferici utilizzano informazioni locali, parziali, con lo scopo di perseguire un obiettivo. 
+	
+	Un'applicazione distribuita invece elimina la gerarchia e distribuisce il controllo a tutti i nodi, nessuno detiene il potere. 
+	
+	%definizione formale sistema distribuito e
+	Un sistema distribuito ha varie definizioni:
+	
+	\begin{quotation}
+		``Un sistema distribuito è una collezione di computer indipendenti che appare ai propri utenti come un singolo sistema coerente \cite{tanenbaum2007sistemi}.
+		``
+	\end{quotation} 
+	oppure
+	\begin{quotation}
+		``
+		Un sistema distribuito è un sistema nel quale le componenti hardware o software si trovano all’interno di una rete di computer collegati tra loro, e comunicano e coordinano le loro azioni solitamente per mezzo dello scambio di messaggi \footnote{S. Mullender Distributed Systems, Addison-Wesley 1993}.
+		``
+	\end{quotation}
+	
+	La blockchain ricade sia nei sistemi decentralizzati in quanto non c'è un singolo punto di controllo, ma anche nei sistemi distribuiti in quanto la computazione avviene in ogni nodo della rete. Ci troviamo quindi nella situazione nella quale non è possibile fare una scelta netta sulla tipologia di sistema implementato, quindi si valuta la blockchain in base a il grado di decentralizzazione di determinati aspetti.
+	
+	\begin{figure}
+		\caption{Tipi di decentralizzazione}
+		\centering
+		\includegraphics[width=0.75\textwidth]{3-tier-decentralization}
+		\label{fig:3-tier-decentralization}
+	\end{figure}
+	
+	Il concetto di decentralizzazione si può dividere in tre dimensioni diverse che, nonostante siano indipendenti l'una dall'altra, hanno dei punti di contatto(come visibili in figura \ref{fig:3-tier-decentralization}). 
+	\begin{itemize}
+		\item Architectural decentralization: indica la numerosità di quanti dispositivi è costituito il sistema e quanto è tollerata la perdita di alcuni di essi.
+		\item Political decentralization: quanti individui o organizzazioni controllano i dispositivi che costituiscono collettivamente il sistema.
+		\item Logical decentralization: descrive quanto sono inscindibili le interfacce e le strutture dati del sistema. Una semplice euristica è che c'è forte decentralizzazione logica se, isolate due parti del sistema esse continuano ad operare indipendentemente.
+	\end{itemize}
+	
+	La proprietà della blockchain di presentare un'unico database consistente si riferisce alla dimensione della centralizzazione logica, ma se può essere un bene per i sistemi basati su blockchain, per sistemi come IPFS diventa una caratteristica da evitare.
+	
+	La centralizzazione architetturale unita alla decentralizzazione politica nei sistemi computerizzati può essere vista come la scelta da una parte di alcuni utenti di schierarsi per l'utilizzo di certi servizi piuttosto che altri. 
+	
+	La centralizzazione logica implica che la decentralizzazione architetturale sia più difficile da raggiungere, è stato visto con successo che le blockchain, reti di consenso decentralizzato, funzionano, ma sono più impegnative da implementare rispetto ai sistemi completamente decentralizzati architetturalmente ed indipendenti come bittorrent.
+	
+	Ci sono tre ragioni principali per preferire la decentralizzazione di un sistema:
+	
+	\begin{itemize}
+		\item Fault tolerance: i sistemi decentralizzati sono meno facilmente soggetti a problemi perchè fanno affidamento su componenti separati che non dipendono l'uno dall'altro.
+		\item Attack resistance : è più dispendioso attaccare un sistema decentralizzato perchè non possiede un nodo centrale facilmente attaccabile ad un costo minore.
+		\item Collusion resistance: è molto più difficile per i partecipanti in un sistema decentralizzato beneficiare in qualche modo se stesso a discapito degli altri partecipanti.
+	\end{itemize}
+	
+
+	\subsection{La nascita della blockchain: Bitcoin}
+
+	Il 3 gennaio 2009, un programmatore anonimo, sotto il nome di Satoshi Nakamoto, mina con successo il primo blocco della blockchain Bitcoin dando il via alla criptovaluta più celebre di tutte e a quel processo di innovazione che oggi sta creando sempre più possibilità. Il suo articolo intitolato \textit{Bitcoin: A peer-to-peer electronic cash system}, è uno studio sulla possibilità di creare una moneta virtuale completamente autonoma e distribuita basata sulla crittografia, la proof-of-work e una rete peer-to-peer che la sostiene\cite{nakamoto2008bitcoin}. 
+	Questo lavoro, pubblicato il 31 ottobre 2008, è il condensato di tanti concetti, alcuni dei quali semplici ipotesi altri veri e propri trattati teorici o progetti che nel passato erano stati diffusi. Il paper di Nakamoto è il primo documento formale contenente i concetti fondamentali che hanno preceduto la messa in funzione, poco tempo dopo, di Bitcoin, un sistema di scambio di denaro elettronico tramite una rete peer-to-peer. Nakamoto introduce la sua innovazione partendo da un problema noto che affligge il commercio in internet: l'obbligo di una terza parte fidata, come una banca, la quale con costi impraticabili non permette lo scambio di piccole somme di denaro tra due utenti. Riconosce l'assenza di un sistema di pagamento che non coinvolga terze parti e che non sconfini nell'acquisire informazioni che invadano la privacy.
+	La sua soluzione è costruire un sistema basato non più sulla fiducia verso una third-trusted-party, bensì sulla crittografia.
+	
+	Prende spunto dal concetto di Bmoney\cite{bmoney} espresso da Wei Dai il quale idealizza un nuovo modo, indipendente ed anonimo (in quanto le persone si presentano mediante chiave pubblica e non più con le loro identità), di scambio di denaro decentralizzato utilizzando la crittografia asimmetrica a chiave pubblica e privata. 
+	Nel sistema Bmoney ogni utente dispone di un database contenente il bilancio, indicizzato tramite chiave pubblica, degli altri utenti e tutte le forme di comunicazione tra di essi avvengono tramite messaggi broadcast. Idealizzò l'utilizzo di contratti tra più parti: un offerente, un compratore, un escrow \footnote{Escrow: un escrow è una terza parte del contratto e garante che vigila sul rispettato delle clausole delle parti.}, che sottoscrivevano un contratto con la possibilità di automatizzare delle funzioni nel caso non venisse rispettato. 
+	Purtroppo un sistema decentralizzato di scambio di monete virtuali, per definizione, non può fare più affidamento ad un ente centrale per il conio di nuove monete, come invece accade nel caso delle monete a corso legale\footnote{Sottocapitolo \ref{sssec:chidecideilprezzo}}. Oltre a ciò bisogna prevedere un meccanismo per assegnare un valore alla criptovaluta. Wei pensò alla possibilità di coniare monete ripagando gli sforzi utilizzati per risolvere dei quesiti proposti da altri, sia intellettuali che pratici.
+	E' proprio con Wei Dai che per la prima volta si può parlare di criptovaluta: il denaro migra da un bilancio all'altro mediante transazioni, esse contengono la chiave pubblica del beneficiario e l'ammontare del denaro ed il tutto viene firmato con la chiave privata del mittente così da permettere a chiunque di verificarne l'autenticità. Il problema che si presenta nella trattazione di Wei Dai è la consistenza e la condivisione di una risorsa comune, un database univoco che possa essere utilizzato per tener traccia dello storico delle transazioni allo scopo di evitare il consumo di risorse già trasferite, il c.d. \textit{double spending}. 
+	
+	\begin{figure}
+		\caption{Catena delle transazioni o firme digitali}
+		\centering
+		\includegraphics[width=0.75\textwidth]{transactions}
+		\label{fig:transactions}
+	\end{figure}
+	
+	Nel nuovo sistema Bitcoin vengono rielaborati i concetti di Bmoney e utilizzati per creare la catena di transazioni. Come si vede dalla figura \ref{fig:transactions} se un utente, identificato mediante una coppia di chiavi pubblica/privata, ha ricevuto a suo carico una proprietà si troverà una transazione che lo indicherà. 
+	Nakamoto aggiunge delle varianti alle transazioni di Bmoney: viene applicata la funzione hash tra la chiave pubblica del destinatario e l'hash della transazione precedente (quella che ha visto l'attuale mittente essere il destinatario della moneta) e, successivamente, firmati dalla chiave privata del mittente.
+	Questo porta a dare una definizione di electronic coin come una sequenza di firme digitali.
+	Si pone, a questo punto della trattazione, il problema di evitare il double-spending di una singola transazione, che non può essere evitato mediante la sola concatenazione di transazioni.
+	
+	Una possibile soluzione è un'autorità centrale che sia a conoscenza e controlli tutte le transazioni, ma ricadiamo nel problema fondamentale della presenza di una terza parte fidata. Quindi una proposta può essere quella di rendere pubbliche le transazioni, in modo che chiunque possa controllare l'assenza di double-spending e si deve disporre di un sistema che permetta di stabilire un consenso sulle transazioni effettuate.
+	Nakamoto pensò che l'utilizzo di una rete distribuita di timestamp server peer-to-peer sia la soluzione al problema del double-spending. 
+	Lo scopo principale dei server di timestamp è proprio quella di raccogliere, registrare e mostrare una prova pubblica che un certo dato, dopo il momento della sua registrazione, esiste ed è precisamente quello.
+	Nakamoto ancora si basa sulla letteratura passata per ideare un semplice sistema di timestamping come si può notare in figura \ref{fig:timestamp-server}.
+	
+		\begin{figure}
+			\caption{Timestamp di elementi mediante hash}
+			\centering
+			\includegraphics[width=0.75\textwidth]{timestamp-server}
+			\label{fig:timestamp-server}
+		\end{figure}
+		
+	%non so come mai ma il concetto di condivisione e ridondanza della blockchain nei nodi non si capisce
+		
+	Il concetto generale è quello di formare una catena,sempre crescente, composta dai valori hash ottenuti tramite l'hash dei documenti e l'hash del blocco precedente. I valori così trovati devono essere pubblicati per permettere il confronto.
+	
+	Ora che si dispongono gli strumenti necessari per risolvere il double-spending bisogna risolvere da una parte il problema dell'esistenza di più nodi che condividono catene diverse, dall' altra bisogna impedire che si possa facilmente modificare la catena di timestamp.
+	%\%TODO guardare-> https://bytecoin.org/blog/proof-of-work/ è vero che bitcoin si basa su hashcash ma a non si può reputare ad adam l'invenzione della proof of work (il nome in realtà non è stato scritto in nessun paper) http://www.hashcash.org/papers/pvp.pdf
+	Per risolvere quest'ultimo problema il sistema Bitcoin fa uso dei concetti che sono alla base di Hashcash. Originariamente Hashcash è stato un meccanismo di protezione contro l'abuso di e-mail da parte di bot o spammer \cite{back2007hashcash}. Il concetto che sta alla base di Hashchash, usato per prevenire attacchi di Spam a caselle postali, è quello di impedire che un attaccante possa trarre guadagno dall'uso indistinto di un servizio obbligandolo a consumare tempo e risorse per una determinata azione.
+	
+	Quello che si richiede è la dimostrazione del lavoro impiegato sia in termini di tempo che di risorse: la cosiddetta \textit{proof-of-work} \cite{liu2006proof}. 
+	La proof-of-work di Hashcash è la prova della creazione di un \textit{token} mediante una CPU cost-function. Quest'ultima deve soddisfare varie proprietà, ma principalmente deve garantire che, da una parte l'esecuzione della funzione per la creazione del token deve essere un procedimento dispendioso, dall'altra la verifica della validità deve essere efficiente. 
+	
+	La proof of work di Bitcoin o PoW usa come CPU cost-function l'applicazione della funzione di hash SHA-256 per calcolare l'hash di un blocco in modo tale da soddisfare una determinata proprietà chiamata \textit{difficoltà}. 
+	La difficoltà di un blocco indica il numero di zeri consecutivi in posizione dei bit più significativi e il lavoro medio richiesto, per soddisfare la PoW, è esponenziale nel numero di bit a zero che sono richiesti, mentre la verifica può essere fatta efficientemente mediante l’esecuzione di un numero ristretto di hash.
+	Nakamoto ritiene in oltre che, in previsione dell'aumento delle prestazioni e dell'aumento dei partecipanti, la difficoltà della PoW varia in funzione del numero medio di blocchi creati in ora e, per mantenere questo valore costante, la difficoltà aumenta e diminuisce con esso.
+	
+	In figura \ref{fig:proof-of-work} è mostrato il contenuto di un blocco: contiene le transazioni, l'hash del blocco precedente ed un campo numerico detto \textit{nonce}. Quest'ultimo viene inizializzato a zero e, ogni volta che l'hash del blocco non soddisfa la difficoltà, viene incrementato di uno e ripetuto il calcolo della PoW finchè non viene trovato un hash valido. 
+	
+		\begin{figure}
+			\caption{Nonce e l'hash del blocco}
+			\centering
+			\includegraphics[width=0.75\textwidth]{proof-of-work}
+			\label{fig:proof-of-work}
+		\end{figure}
+		
+	
+	Una volta che gli sforzi della CPU sono stati spesi per trovare un hash che soddisfi la proof-of-work, il blocco non può più essere modificato senza rieseguire il lavoro. Inoltre, dato che i blocchi sono concatenati l'uno all'altro, mediante l'hash del blocco precedente, modificare un blocco passato implica calcolare non solo nuovamente l'hash di quel preciso blocco, ma bensì tutte le PoW successive ad esso.
+	
+	Anche il consenso dei nodi su quale sia, tra le possibili catene quella \textit{migliore}, viene risolto mediante la PoW. Verrà infatti estesa solo la catena migliore, solo quella con il numero più elevato di blocchi validi.
+	
+	La catena più lunga gode di un lavoro e una spesa maggiore impiegata e, quindi, il modificare un blocco passato è più dispendioso da attuare rispetto alle altre. 
+	Fintanto che i nodi onesti e la loro potenza computazionale rappresenteranno la maggioranza, non sarà possibile per un attaccante la modifica di un blocco passato. 
+	Nakamoto definisce il comportamento di un nodo che viene informato di due nuovi blocchi validi, ma differenti.
+	Prima della soluzione viene introdotto il concetto di altezza del blocco e branching. 
+	L'altezza di un blocco coincide con la profondità di un nodo in una topologia ad albero dove la radice è il primo nodo minato. 
+	Come si vede in figura \ref{fig:fork-blockchain}, il branching o biforcazione avviene quando un nodo riceve due blocchi validi della stessa altezza. 
+	
+		\begin{figure}
+			\caption{Blockchain soggetta ad fork, si notano colori diversi per differenti branch.}
+			\centering
+			\includegraphics[width=0.75\textwidth]{fork-blockchain}
+			\label{fig:fork-blockchain}
+		\end{figure}
+	
+	
+	La soluzione del problema precedente è un branching della catena: un nodo nel momento in cui riceverà due nuovi blocchi validi per la catena su cui stava lavorando, mantiene i due blocchi e costruisce una biforcazione della catena. Il nodo a seguito della biforcazione o \textit{soft fork} ha due possibili catene, entrambe valide, su cui poter lavorare per estenderle. Si tornerà a lavorare su di una sola catena nel momento in cui la lunghezza di un branch supererà quella degli altri.
+	%merkle root
+	Una transazione per poter essere registrata deve prima essere creata, come abbiamo visto precedentemente, e diffusa verso tutti i nodi della rete. Ogni nodo collezionerà le transazioni inserendole in un blocco e lavorerà per trovare la proof-of-work. Una volta trovata, il blocco valido sarà condiviso con tutti gli altri nodi che potranno verificare la validità e l'assenza di double-spending.
+	
+	La funzionalità che introdurremo nasce sempre nell'ambiente del timestamp di documenti e avrà l'obiettivo di assegnare un nome ad un documento digitale che, anche a scapito della perdita di un potere espressivo nel linguaggio umano, conferisce la capacità di identificare univocamente il documento e la sua verifica mediante crittografia\cite{massias1999design}.
+	
+	Come ricordiamo un timestamp è un certificato digitale che assicura l'esistenza di un certo documento in un determinato momento. 
+	Attraverso la costruzione di un albero binario di valori di hash, detto \textit{Merkle Tree} dal nome del suo ideatore, si può organizzare un meccanismo rapido di verifica del timestamp dei documenti.
+	Come si evince dalla figura \ref{fig:merkle-tree} l'albero viene costruito a partire dalle foglie che contengono gli hash dei documenti, ogni altro valore assegnato ad un nodo interno viene calcolato mediante l'hash dei due valori sinistro e destro a profondità successiva. Il procedimento termina fino a che non si ottiene la radice detta \textit{Round Root Value}, la quale viene combinata con il valore dell'albero precedentemente trovato calcolando l'hash e ottenendo una nuova radice detta \textit{Round Value}. 
+			\begin{figure}
+				\caption{Costruzione del Merkle Tree}
+				\centering
+				\includegraphics[width=0.45\textwidth]{merkle-tree}
+				\label{fig:merkle-tree}
+			\end{figure}
+	Ci sono due tecniche di creazione di un sistema di timestamping : trusted-third-party e distributed-trust\cite{massias1999design}.
+	Il primo per espletare la funzione di timestamp sfrutta un autorità centrale, pone i Round Value su di un sito fidato o su di un documento in modo tale da rendere i valori immutabili. Il secondo metodo invece distribuisce replica la serie di timestamp su di un gran numero di persone, basandosi sulla convinzione che corrompere un gran numero di utenti firmatari sia difficile. In ogni caso il timestamp di un documento sarà formato da tutti i valori necessari che permettono di ricostruire il merkle tree\footnote{Merkle tree o albero di Merkle dal nome del suo ideatore, e identifica un albero in cui ogni nodo interno è identificato da un hash.} a partire dall'hash del documento per poi confrontare il valore del Round Value trovato con il corrispettivo valore posto sul sistema trusted. 
+	In Bitcoin l'uso è duplice, permette sia la verifica immediata dell'esistenza di una transazione senza che colui che vuole effettuare la verifica debba avere tutte le transazioni, sia permette di inserire nei blocchi, piuttosto che le intere transazioni, solo il Root Round Value o Merkle Root permettendo di alleggerirne il peso.
+	
+	%incentivi
+	Nakamoto prevede che tutti i partecipanti della rete che riescono a soddisfare la PoW estendendo la catena, debbano percepire degli incentivi per gli sforzi compiuti. Gli incentivi, in cripto-monete, sono formati dalle tasse applicate alle transazioni e dai \textit{bounty reward} che sono il compenso per chi riesce a creare un nuovo blocco valido. 
+	
+
+	Come abbiamo già detto il problema principale di non disporre di un ente centrale, come la zecca dello stato, è che bisogna prevedere un meccanismo di introduzione di monete: per ogni nuovo blocco introdotto verranno coniate nuove monete virtuali.
+	In Bitcoin è stato previsto anche uno strumento, detto \textit{halving}, che consiste nel dimezzare periodicamente il bounty reward di un blocco. Ciò consente di limitare il numero massimo di monete coniabili e quindi di combattere l'inflazione\ref{sssec:chidecideilprezzo}.
+	Per far ciò la prima transazione di ogni blocco, detta \textit{coinbase} è riservata al nodo che trova la Pow e gli garantisce l'attribuzione degli incentivi.
+	
+	Grazie alla pubblicazione del white paper di Bitcoin e dal rilascio del codice sorgente sotto licenza MIT, nel corso del tempo sono nate nuove criptovalute basate sulla prima dette \textit{altcoin}. Le differenze tra Bitcoin e altcoin possono essere sottili e riguardare solamente alcuni aspetti implementativi, ma possono anche differire negli aspetti più profondi come gli algoritmi di consenso o funzionalità aggiuntive come anonimizzare delle transazioni.
+	
+	%Put simply, sidechaining is any mechanism that allows tokens from one blockchain to be securely used within a completely separate blockchain but still moved back to the original chain if necessary. By convention the original chain is normally referred to as the "main chain", while any additional blockchains which allow users to transact within them in the tokens of the main chain are referred to as "sidechains". For example, a private Ethereum-based network that had a linkage allowing ether to be securely moved from the public Ethereum main chain onto it and back would be considered to be a sidechain of the public network.
+	
+	Oltre a catene indipendenti, come Tenebrix, Zetacoin, Lightcoin, Dogecoin e molte altre, possiamo trovare applicazioni decentralizzate come Zerocoin o Factom che sfruttano una blockchain costruendoci al di sopra delle applicazioni indipendenti, con funzionalità aggiuntive, che possono essere a loro volta delle nuove blockchain.
+	In particolare ci si riferisce a quest'ultime con il termine di \textit{sidechain} che indica ogni meccanismo che permette a delle criptomonete di una blockchain di essere usate in una catena separata, ma se necessario, possono essere riutilizzate nella catena originaria. Come nel caso di Factom nel quale si predispongono due sidechain, Factom ed Entry Credit, che permettono di operare ed aggiungere funzionaltà alla catena di Bitcoin \footnote{Il sistema di consenso di Factom. \url{https://docs.google.com/document/d/1gsXbid3UC1AwaIgmUxjsBav0WDxZi73RXIYDETdmhR8/edit}}.
+	%Alcune mirano a risolvere problemi specifici come lightcoin e zerocoin
+	%A tutti i livelli di utenze: dalle classiche blockchain per lo scambio di valute tra qualsiasi utenza a blockchain riservate per trasferire criptovalute tra banche come il progetto Ripple.
+	
+	Ogni blockchain è stata progettata per aver un preciso scopo che però limita il campo di utilizzo della blockchain da parte di nuove applicazioni, le quali sono obbligate a distribuire l'applicazione su di un sistema che usa la blockchain solo come audit.
+	Questo fino alla nascita di Ethereum. 
+	Ethereum si è presentata come una piattaforma decentralizzata basata su blockchain, pubblica, opensource per la pubblicazione di smart contract programmati tramite un linguaggio turing-completo. Se prima un programmatore che voleva sviluppare un'applicazione di aste online era obbligato a utilizzare due sistemi distinti, il livello applicativo basato su sistema centralizzato e la blockchain come storage, ora la blockchain non diventa solo un sistema distribuito di timestamping per criptovalute, bensì una macchina virtule capace di eseguire programmi con tutti i pro e i contro della blockchain\cite{wood2014ethereum}.
+	%% potrei introdurre solo il concetto di  multitier \footnote{In software engineering, multitier architecture (often referred to as n-tier architecture) or multilayered architecture is a client–server architecture in which presentation, application processing, and data management functions are physically separated}
+	
+
+	\subsection{Proof-of-work e i problemi legata ad essa}
+
+	Come è stato detto precedentemente l'obiettivo degli algoritmi di consenso, di cui la proof-of-work è uno di essi, è di stabilire un meccanismo attraverso il quale, in una rete blockchain pubblica, gli utenti possono riconoscere e condividere collettivamente la stessa catena. Questo permette di minimizzare la fiducia che i nodi della rete devono mantenere tra loro, permettendo l'entrata e uscita di qualsiasi nodo dalla rete in qualsiasi momento.
+	Le famiglie di algoritmi di consenso utilizzati nelle blockchain sono varie e si basano su concetti differenti, ma che puntano tutte nell'utilizzare funzioni che sono impegnative da attuare, facili da verificare e che portano a stabilire delle regole per la determinazione della catena da estendere. La proof-of-work è solo una di esse, ma troviamo anche altri metodi come la proof-of-stake, proof-of-burn, proof-of-capacity.
+	%https://bytecoin.org/blog/proof-of-stake-proof-of-work-comparison/
+	%https://bytecoin.org/blog/proof-of-work/
+	All'interno della famiglia di algoritmi di consenso basati sulla proof-of-work troviamo delle differenze negli algoritmi di cifratura utilizzati e il fattore che gli accomuna è che devono soddisfare la difficoltà, trovando un numero $x$ tale per cui l' HASH($x$) ha $N$ bit a zero.
+	In pratica, l'algoritmo di hashing sarà ciò che contraddistinguerà un algoritmo di consenso da un altro. Nella trattazione orginale di Bitcoin viene utilizzato l'algoritmo di Hashcash che a sua volta si basa su SHA256. Il problema che Satoshi non si era posto inizialmente, che nel corso del tempo è stato sempre più nitido, è la differenza tra il contributo di un utente che dispone di hardware di fascia media rispetto ad un investitore che centralizza grande potenza di calcolo ( potenza di hashing). La situazione è peggiorata con l'introduzione di hardware performanti quali GPU rig\footnote{I GPU rig, letteralmente impianti Graphics Processing Unit, sono quegli apparati di calcolo parallelo che sfruttano diverse schede grafiche come singole unità di elaborazione.}, FPGA\footnote{Con l'acronimo FPGA o Field Programmable Gate Array è un dispositivo che consente la programmazione dei circuiti integrati.} e ASIC\footnote{Con l'acronimo ASIC o Application Specific Integrated Circuit si indica un circuito elettronico appositamente progettato per essere efficiente nell'esecuzione di particolari compiti.} che hanno azzerato il contributo che un utente medio poteva fornire, decentralizzando completamente la potenza di calcolo verso chi ne dispone maggiormente, o come spesso accade, chi può farlo a basso prezzo. 
+	Il problema generale risiede nell'utilizzo di funzioni di hashing, come SHA1 o SHA256, che sono ideate per essere performanti. Inoltre l'unico bottleneck di queste funzioni è il numero di operazioni al secondo che un hardware può eseguire e, che rispetto alle CPU di fascia alta, può essere aumentato di vari ordini di grandezza mediante l'utilizzo di hardware dedicati (ASIC) al posto dei comuni processori. 
+	Questo unito al fatto che la produzioni di ASIC e il mining è in mano a poche industrie dell'est asiatico ha posto grandi interrogativi sulla qualità della PoW di Bitcoin e su quanto sia effettivamente decentralizzato.
+	
+	Queste ragioni hanno spinto la blockchain \textit{Tenebrix}, nel settembre 2011, a proporre una variante della funzione crittografica SHA256 e una nuova proof-of-work che non utilizza il numero di operazioni al secondo come bottleneck, bensì operazioni che includono grandi moli di dati e maggior memoria\footnote{\url{https://bitcointalk.org/index.php?topic=45667.0}}.
+	Il progetto Tenebrix puntava a ridare la possibilità a chiunque di minare questa criptovaluta traendone profitto, essendo progettato per essere inefficiente se eseguito su apparati che vengono usati per il calcolo parallelo o ASIC. Inoltre l'utilizzo di una nuova tecnologia poneva nuovi sbarramenti a chi volesse attaccare la rete mediante il superamento del 51\% di potenza di hashing, perchè non solo un attaccante avrebbe dovuto superare il 51\% di hashrate dell'intera rete, ma avrebbe dovuto investire denaro nella ricerca e sviluppo di nuovo hardware ASIC per la proof-of-work Tenebrix diminuendo la profittabilità dell'attacco.
+	\textit{Scrypt}, l'algoritmo alla base della PoW della nuova blockchain, non è una funzione crittografica di hashing come lo è SHA256, ma fa parte della famiglia di funzioni di derivazione della chiave \textit{KDF} (Key Derivation Function)\cite{percival2009stronger}. In particolare queste funzioni vengono utilizzate per la memorizzazione di password nei database o, come nel caso dell'algoritmo HMAC, per l'invio di messaggi firmati che consente la verifica dell'integrità e dell'autenticità del messaggio.
+	
+	Le funzioni KDF nascono per aggiungere maggior sicurezza rispetto alle funzioni di hashing nel salvataggio di password nei database. In generale data $H$, una funzione KDF, dato $S$, un numero detto salt, si calcola la \textit{derivative key} $h$ di un messaggio $m$ applicando $H(m,s)$. Nelle normali funzioni hash abbiamo un solo parametro (il messaggio) che è ciò che vogliamo trovare se siamo degli attaccanti e vista la non invertibilità della funzione e la distribuzione costante delle preimmagini questo ci porta ad effettuare un attacco brute-force sull'hash del messaggio per risalire al contenuto originario. In particolare, a questo scopo, un attaccante si può appoggiare alle \textit{Rainbow Table} che contengono i valori precalcolati del messaggio e il proprio hash così da fornire l'inversa dell'hash in tempo costante. Per prevenire questo tipo di attacco le funzioni di derivazione della chiave aggiungono una difficoltà, l'hash del messaggio è parametrizzato mediante l'aggiunta di un numero random detto \textit{salt}: se un attaccante vuole conoscere l'inversa in tempo costante deve trovare l'intera rainbow table di un preciso valore salt.
+	
+	Le funzioni di derivazione della chiave hanno come obiettivo quello di complicare la generazione della chiave, non troppo per essere calcolata in tempi ragionevoli, ma abbastanza da prevenire utilizzi malevoli. Quelle che in teoria possono essere applicate sono le KDF adattive: in input alla funzione oltre al messaggio, il salt, viene aggiunto un parametro che aumenta il numero di iterazioni da applicare alle funzioni interne più elementari. Le funzioni KDF adattive, sono PBKDF2, bycrypt e scrypt. Questi algoritmi permettono non solo di eseguire la ricerca di un hash lentamente, o meglio, non possono essere ottimizzate mediante circuiti appositi, ma sfruttano i limiti della memoria (in termini di capacità e velocità) come limite aggiuntivo.
+	
+	L'utilizzo di Scrypt al posto degli altri algortimi è dettato da varie ragioni. La prima è che PBKDF2 può essere implementato efficacemente in piccoli componenti con poca RAM come gli ASIC. Bycript poteva essere un candidato ideale, ma è stato sorpassato da Scrypt sulla capacità di utilizzare intensivamente la memoria. 
+	Il concetto alla base di Scrypt sono le \textit{Moderately hard, memory-bound functions} ed è stato creato da Colin Percival per ostacolare il bruteforcing nel prodotto di backup di sicurezza Tarsnap\footnote{http://www.tarsnap.com/scrypt/scrypt-slides.pdf}. 
+	Si basa sull'assunzione che l'unico modo per attaccare una funzione KDF sia effettuare il bruteforcing di tutte le possibili combinazioni e la resistenza a ciò è solo questione di denaro-tempo. Come riporta Percival, il cracking di password è riducibile al calcolo parallelo, nel quale raddoppiare il numero di circuiti che processano le informazioni ne dimezza il tempo di scoperta. Quello che si può fare è incidere sul costo di produzione di questi dispositivi obbligando l'utilizzo di grandi quantità di memoria da parte dell'algoritmo di cifratura(Scrypt attualmente su litecoin alloca 128K). 
+	L'algoritmo Scrypt era efficente sulle CPU che disponevano di una memoria cache abbastanza grande con la quale allocare e scambiare dati velocemente. Nel corso del tempo però vari produttori di ASIC, già conosciuti per la produzione di hardware per mining su Bitcoin, hanno creato hardware dedicato che disponga di una buona potenza di hashing su Scrypt, ma gli alti costi e le scarse prestazioni in confronto ad ASIC per il calcolo di SHA256, che erano state previste da Percival, stanno mantenendo l'hashrate delle reti delle blockchain basate su Script maggiormente distribuito.
+	
+
+	\subsection{Proof-of}
+	E' stata mostrata la proof-of-work, le sue varianti in base all'algoritmo di cifratura utilizzato e la conseguenza di questa scelta, ma esistono altri metodi di determinazione del consenso.
+	
+	In generale una proof per essere funzionale deve rispondere a determinate caratteristiche:
+		
+		\begin{description}
+			\item[Target]: il target è quella proprietà che deve essere soddisfatta mediante l'attuazione della proof, deve essere generato deterministicamente in modo da consentire la verifica.
+			\item[Consumo di risorse]: l'attuazione del della proof comporta un consumo di risorse, sia che esse siano materiali come l'energia elettrica, sia che siano immateriali come il costo di tenere congelato un asset finanziario.
+			\item[Verificabilità]: deve essere efficiente la verifica del soddisfacimento del target.
+		\end{description}
+	\subsubsection{Proof-of-stake}
+	Il termine \textit{stake} è letteralmente tradotto in puntata, scommessa e proof-of-stake, indica la famiglia di algoritmi di consenso che si basano su quanto e come un utente possiede un'ammontare di criptovalute per garantire, allo stesso modo della proof-of-work, il consenso dei nodi della rete.
+	Le criptovalute come Ethereum,Nxt e Bitshares utilizzano attualmente, o sono in procinto, di implementare nei loro sistemi la proof-of-stake, ma per comprendere al meglio i concetti che sono alla base di questo cambiamento è bene soffermarsi su Peercoin che è stata la prima blockchain ad introdurre questo nuovo concetto.%https://peercoin.net/
+	Peercoin nasce nel 2012 ed è stata la prima criptovaluta a proporre un sistema alternativo di messa in sicurezza della blockchain e di incentivazione dei miner.
+	
+	Ciò ha permesso di introdurre nuove possibilità: se prima con la PoW veniva centralizzato il potere computazionale per rendere profittabile il mining, con l'adozione della PoS ogni dispositivo può ora competere alla creazione di nuovi blocchi per via di questo sistema leggero ed efficiente dal punto vista energetico e computazionale.
+	%%peercoin white paper
+	
+	Peercoint sfrutta il concetto di coin age, esso non è nuovo e in Bitcoin viene utilizzato per dare la priorità alle transazioni meno recenti e non per aggiungere sicurezza alla blockchain; viene definito come segue.\\
+	Data una transazione $T$  verso l'account $b$ al timestamp $t$ di un ammontare $c$, indichiamo con $T[b]_c$ l'ammontare del capitale trasferito, $T[b]_t$ il timestamp della registrazione della transazione e possiamo definire la quantità $Coinage(T[i]_c)$ nel seguente modo:
+	
+		\begin{equation}
+		Coinage(T[b]_c) \equiv T[b]_c \times Corr(now - T[b]_t) 
+		\end{equation}
+	
+	$Corr$ è una funzione di correzione che mappa il timestamp espresso in secondi in un'altra unità temporale e $now$ è la funzione che restituisce il timestamp attuale.
+	
+	Quando un'ammontare di denaro viene immesso in una transazione il coin age di quella quantità viene azzerato o \textit{consumato}.
+	
+	La proof-of-stake è la realizzazione dell'assunzione che per rendere sicura una rete blockchain non ci si può basare solo sulla difficoltà dell'esecuzione delle operazioni durante la fase di mining. Infatti esse spingono i miner ad investire per aumentarne la capacità di calcolo che si tramuta in transaction-fees sempre più crescenti nel momento in cui altri miner si introducono nella rete per contendersi la validazione dei blocchi.
+	
+	Come ogni sistema monetario la creazione di nuova valuta deve essere impedita o rallentata, se da una parte il costo della PoW è il consumo di energia-tempo, dall'altra nella PoS è il consumo di coin age e quindi la prova della proprietà di un certo ammontare che viene consumata.\\
+	
+	\textbf{Generazione dei blocchi}\\
+	
+	Nel sistema Peercoin è presente un nuovo tipo di blocco detto blocco PoS.
+	
+	La PoS nei nuovi tipi blocchi è una speciale transazione detta \textit{coinstake} (in riferimento anche alla \textit{coinbase} di Bitcoin) nella quale il possessore $b$ della transazione del blocco trasferisce a se stesso $T[b]_c$ consumando la quantità $Coinage(T[b]_c)$ e guadagnando il diritto di generare un blocco.
+	
+	In dettaglio la transazione $coinstake$ sarà formata da:
+	
+			\begin{equation}
+			coinstake \equiv (Kernel,I)
+			\end{equation}
+			
+	Una transazione $coinstake$ viene firmata da $b$ e sarà formata da un record di due campi:
+	\begin{description}
+		\item[I] : è un vettore di input non spesi, o UTXO  riferendoci sempre al sistema Bitcoin, definisce il coinage di quali transazioni passate deve essere consumato. L'indirizzo di destinazione è ovviamente lo stesso di colui che esegue la transazione.
+		\item[Kernel] : è un numero che consente di modificare l'hash della transazione coinstake per soddisfare il target.
+	\end{description}
+	
+	Nella PoW di Bitcoin è presente il campo nonce che viene incluso nel calcolo dell'hash del bocco e che permette, stabilito un target, inteso come difficoltà di mining, di ricercare l'hash che lo soddisfi. Anche nella proof-of-stake di Peercoin vengono effetuati gli hash degli input e del $Kernel$ ma il target imposto dal protocollo è dipendente dalla $coinage$ degli input. 
+	
+	Quando un blocco viene rilasciato, i nodi prima di accettarlo, verificano che la firma sia autentica, il valore del kernel sia corretto e che soddisfi il target imposto per colui che ha minato quel blocco.\\
+	
+
+	In questo sistema virtualmente più veloce, per via dell'assenza dell'enorme carico computazionale dato dalla difficoltà della PoW, il criterio di scelta della catena più lunga da estendere tra una serie di fork, è basato non più sulla quantità maggiore di lavoro impiegata nella costruzione della blockchain, ma sarà basato sulla quantità maggiore di $coinage$ accumulata in un ramo.
+	
+	In base al protocollo Peercoin durante la nascita della blockchain, quando il totale della $coinage$ è posseduta da pochi account, viene impiegata la PoW, mentre a lungo termine si utilizza la proof-of-stake.
+	
+	Uno dei problemi riguardanti la proof-of-stake è la facilità con la quale un nodo può lavorare su più fork della blockchain andando a competere per estenderle tutte. Peercoin e le altre blockchain basate sulla PoS risolvono questo problema in vari modi, in Peercoin viene firmato (da un'autorità trusted) un ramo che dai nodi verrà considerato il migliore.
+	La soluzione proposta da Peercoin non è quella di evitare la proof-of-work, è sempre presente la possibilità di minare nuovi blocchi tramite la PoW, ma risulta più profittevole ed efficiente sfruttare ricevere gli incentivi minando tramite lo staking e quindi la PoS.
+	
+	\subsubsection{Proof-of-burn, proof-of-capacity e proof-of-authority }
+		
+	%http://www.slimcoin.club/whitepaper.pdf
+	%http://www.slimcoin.club/
+	
+	Nel 2014 viene implementata una blockchain, \textit{Slimcoin}, la criptovaluta introduce una nuova forma di proof: la \textit{proof-of-burn}.
+	Questa da una parte è simile alla PoS in quanto da la possibilità di oltrepassare l'uso della PoW, ma differisce in quanto il consumo di risorse viene inteso come consumo permanente di un certo ammontare, che ne conferisce però il diritto di minare il nuovo blocco\cite{slimecoinWhitepaper}.
+	In pratica il consumo permanente viene attuato creando una transazione che non può essere riscattata da nessuno,ma che risulti facilmente verificabile.\\
+	
+	Nello stesso anno venne introdotta, con la moneta digitale \textit{Burstcoin}, la \textit{proof-of-capacity} che si presenta come mezzo per perseguire una più alta decentralizzazione. Il suo funzionamento si basa sulla caratteristica di essere ASIC-resistente in modo da massimizzare la profittabilità che un utente medio, con il proprio computer di casa, possa trarre dal mining, contribuendo a distribuire la potenza di calcolo. Anche se sfrutta il memory-bound è diversa dalla PoS di Litecoin perchè entrambe utilizzano quantità di memoria ben diverse e algoritmi per la determinazione del consenso diverse. Burstcoin alloca durante la sua esecuzione grandi quantità di dati, dell'ordine di diversi megabyte, denominati \textit{plot} e richiede la ricerca di particolari informazioni. Burstocoin è la prima blockchain ha presentare la capacità di eseguire codice autonomo turing-completo all'interno delle proprie transazioni.\\
+	
+	Infine viene considerata una proof che non richiede l'uso di risorse per minare nuovi blocchi, la \textit{proof-of-authority}, che semplicemente codifica in fase di settaggio iniziale dei nodi le chiavi pubbliche dei firmatari da cui deve essere considerata valida la creazione di un blocco e quindi trarre da essi la blockchain migliore\footnote{Proof-of-Authority: \url{https://github.com/paritytech/parity/wiki/Proof-of-Authority-Chains}}.
+	
+	
+\iffalse	
+	In tutte le definizioni troviamo delle componenti che possono comunicare tra loro sfruttando interfacce note e scambio di messaggi.
+	Le caratteristiche di un sistema che lo rendono tale, si possono considerare in primo luogo l'indipendenza dei singoli computer e lo sfruttare la capacità di comunicazione e di scambio di messaggi per collaborare e cooperare. 
+	Poi da questi due concetti è possibile estrapolare una serie di obiettivi che un sistema distribuito deve garantire. 
+	L'accessibilità alle risorse,  deve essere intesa sia in senso proibizionista, quindi di negazione della lettura, modifica o cancellazione di dati se non si dispongono i permessi, ma anche di controllo e gestione degli accessi mediante audit. 
+	L'obiettivo della \textit{trasparenza} è raggiunto mediante la creazione di un sistema che agli utenti si presenti come una singola macchina. La realizzazione di applicazioni distribuite deve basarsi su una forte astrazione, si perde il concetto di ubicazione delle risorse, la replica e la migrazione di risorse sono frequenti anche al fine di essere resistente ad attacchi e guasti di singoli nodi, i quali non devono essere percepibili dall'utilizzatore finale. Altro concetto fondamentale è la scalabilità di un sistema intesa sia come scalabilità delle dimensioni del sistema stesso, la capacità di aumentare linearmente le risorse disponibili a fronte dell'aumento di utenti, sia come scalabilità dal punto di vista geografico e da quello amministrativo. 
+	La prima visione di scalabilità è una delle caratteristiche che spinge a decentralizzare qualsiasi algoritmo o servizio centralizzato: l'utilizzo di un singolo computer è il collo di bottiglia dell'intero sistema, aggiornamenti, attacchi, malfunzionamenti, costi proibitivi di aggiornamento di mainframe sono solo alcuni problemi che possono fermare l'esecuzione di un applicazione centralizzata. 
+	Scalare geograficamente il sistema viene inteso sia come spezzare un componente software, e ridistribuirlo in tanti altri componenti più piccoli, sia bilanciare il carico applicativo tra i nodi. Si può dividere un algoritmo tramite approcio divid-et-impera e parallelizzare i calcoli su più nodi o possiamo semplicemente spostare il carico applicativo dal centro della rete alla periferia (i client). Quest'ultima soluzione può essere fatta non solo spostando componenti software a lato client, ma aggiungendo nuove macchine fisicamente distribuite sul territorio migliorando ritardi end-to-end. Le prime due visioni di scalabilità portano benefici su certi fronti ma introducono nuova complessità e problemi legati alla concorrenza e la consistenza delle risorse che non sempre hanno soluzioni\footnote{paxos, byzantin theorem}.
+	Per la raggiunta di quest'ultimo obbiettivo possibili soluzioni possono essere la replicazione delle informazioni e la ridondanza dei calcoli unite a sistemi complessi di elezione del leader o forme di gestione Fault-Tolerance come quelle usate in diverse blockchain \footnote{Fault-tolerace Consensus http://dcg.ethz.ch/lectures/podc\_allstars/lecture/podc.pdf}.
+	
+	La scalabilità amministrativa, con la quale poter mantenere il controllo e la manutentibilità del sistema, spesso non è compatibile con le altre viste. La blockchain ne è l'esempio principe: i miner competono alla validazione dei blocchi e collaborano a mantenere la blockchain sicura mediante partecipazione volontaria, sono distribuiti geograficamente e sono indipendenti l'uno dall'altro. Non seguono un autorità ma, come spesso accade, sono guidati solo dal profitto che ne possono trarre. In questo ambiente d'indipendenza ma allo stesso tempo collaborazione spesso è accaduto che i miner, e le persone dietro alla loro gestione, non siano concordi con l'aggiornamento di alcune parti del codice producendo stati inconsistenti.
+	
+	L'approcio diffuso nell'ambiente dello sviluppo di applicazioni distribuite a partecipazione volontaria è quello di, facoltativamente, prima di condividere un'idea apertamente con gli attori del sistema, quali sviluppatori, miner e utilizzatori, e poi proporre le modifiche tramite \textit{improvement proposal} o proposta di miglioramento. Le BIP e EIP, rispettivamente \textit{Bitcoin-Improvement-Proposal} e \textit{Ethereum-Improvement-Proposal}, sono documenti per introdurre, modificare e descrivere interfacce e protocolli che sono proposti dai creatori dei sistemi distribuiti.
+	
+	I sistemi basati su blockchain sono architetture complesse, che constano di una componente statica, per esempio la gestione e allocazione delle transazioni così come i 'controlli' e gli algoritmi crittografici, che è creata, compilata, ma la particolarità che rende questi sistemi interessanti è la loro componente dinamica, la capacità di modificare il loro comportamento a run-time. 
+	è il programma stesso che deve essere creato con la previsione di supportare questa funzionalità, la quale può essere ottenuta attraverso l'utilizzo a run-time di librerie oppure con l'implementazione di un interprete che permetta, anche da remoto, di eseguire del bytecode. Lo stesso bitcoin utilizza un interprete per un linguaggio non turing-completo basato su operazioni solo sullo stack e sui dati in input, così da permette a chiunque, in qualsiasi istante in cui la blockchain è in esecuzione, di creare, inventare ed inserire i propri metodi di pagamento personalizzati\cite{bonneau2015sok}.
+	
+	La blockchain risiedente su di un sistema distribuito richiede che gli aspetti di dinamicità e scalabilità vengano rispettati e le interfacce a cui i nodi si appoggiano per richiedere i servizi siano note. Supponendo che i computer siano uniformati ad utilizzare una particolare versione dell'applicazione distribuita, quindi predisporre la stessa interfaccia con cui scambiarsi messaggi, rimane un problema isolato l'aggiunta o la rimozione di un nodo che partecipa alla rete di calcolo distribuito. Una possibile soluzione può essere fatta considerando una configurazione manuale, che consiste nell'indicare quali nodi partecipano alla rete, ma pone dei grossi limiti se il numero di nodi è alto e la loro partecipazione è intermettente. Viceversa l'utilizzo dell'archittettura orientata ai servizi (Service Oriented Architecture) modellizza interfacce di registrazazione e di deregistrazione  con le quali un nodo segnala la sua partecipazione, o uscita, alla rete e può effettuare operazioni di discovery che gli consentono di scoprire quali nodi e servizi sono disponibili\footnote{http://www.d-net.research-infrastructures.eu/node/34}.
+	Varie applicazioni quindi si appoggiano a servizi centralizzati o decentralizzati, come applicazioni IRC o sistemi dns, per tenere traccia di quali nodi (indirizzo ip e altri meta dati) offrono un servizio.
+\fi
+
+
+
+
+
+\subsection{Aspetti economici}
+
+Un aspetto fondamentale introdotto da Nakamoto nella sua trattazione e in tutte le criptovalute attualmente in rete è la presenza di incentivi per i miner che consentono di guadagnare valuta digitale. In teoria questo viene attuato per consentire la decentralizzazione dei miner e della loro potenza di calcolo con lo scopo di conseguire un alto livello di sicurezza e imparzialità. Nel mercato composto da miner, utilizzatori di criptovalute, fornitori di servizi quali wallet online e side-chain considerano la criptovaluta come una vera e propria moneta al pari delle monete \textit{fiat}\footnote{Con monete fiat si intende un mezzo di pagamento legale riconosciuto dallo stato ed emesso da un'autorità, il mezzo non possiede un valore intrinseco come una riserva aurea.}.
+
+Questa peculiarità permette ai cosiddetti \textit{exchange} di imporsi come banche decentralizzate, le quali scambiano criptovalue o valute fiat applicando un tasso di cambio. Ciò è reso possibile dal largo impiego di criptomonete nel mondo reale come mezzo di scambio tra le persone, spingendo nuovi utenti, interessati a utilizzare questi metodi di pagamento alternativi, a cercare di ottenere un certo ammontare di criptovalute accettando di scambiarlo con beni e servizi.
+
+A sua volta questo fatto permette ai miner che spendono, anche in minima parte, tempo o denaro per rendere sicura la rete, di ricevere delle criptovalute che possono essere tramutate in denaro per ripagare i propri sforzi.
+
+Se così non fosse le reti pubbliche basate su blockchain non potrebbero giovare più del contributo autonomo e volontario dei miner i quali non potendo più effettuare il cambio tra criptovaluta in valuta reale si troverebbero in una situazione di perdita. 
+
+Per trarre una stima del consumo di elettricità, quindi del costo associato all'operazione di mining, possiamo moltiplicare l'hashrate (la quantità di hash al secondo della rete) per la potenza assorbita dagli apparati che effettuato l'operazione. Attualmente, la criptovaluta più diffusa della rete (Bitcoin) viene sostenuta da un hashrate di oltre $3,400,000,000 GH/s$\footnote{Stima derivata dal tempo di risoluzione della PoW, che a sua volta varia in base alla difficoltà (\url{https://blockchain.info/it/stats})}. Il costo energetico di un GigaHash, associato ai dispositivi che vengono sfruttati dai miner, è più complicato da stimare, in quanto essi impiegano una grande varietà di mezzi e tecnologie per validare i blocchi: Nonostante questo si può pensare che per via della profittabilità e dell'economicità dell'impiego di hardware ASIC e GPU, solo queste due tecnologie vengano usate. I consumi di questi dispositivi variano da 0.10 W/GH a 10 W/GH, quindi, prendendo una valore centrale come 5 W/GH, possiamo ben accorgerci di quanta potenza ed energia venga impiegata al secondo per minare la criptovaluta Bitcoin. Considerando la somma di tutte le blockchain possiamo considerarlo un valore allarmante.
+
+L'enorme inefficienza del processo di mining (basato su PoW) porta coloro che vogliono trarne guadagno ad investire grandi capitali e spostare i propri stabilimenti dove il costo dell'energia è minore. Non a caso il maggior numero di blocchi minati viene trovato da miner e pool cinesi o dell'est europa \footnote{\url{http://www.businessinsider.com/bitcoin-pools-miners-ranked-2016-6?IR=T/\#2-antpool--1682-17}}. Se nel breve termine questo non può dare delle conseguenze, gli alti costi di gestione possono tagliare fuori qualunque altro utente indipendente dall'operazione di mining portando quei pochi miner a centralizzare sempre di più la potenza di calcolo e, di conseguenza, la decisione su quali transazioni includere o no nei blocchi.
+
+\subsubsection{Chi decide il prezzo}\label{sssec:chidecideilprezzo}
+
+
+Come ad ogni altra valuta reale, la collettività ha assegnato alle criptovalute un prezzo, inteso come costo di cambio tra una valuta e l'altra. La confusione però è molta, ma a livello europeo si è delineato cosa siano le blockchain intese in senso di valute virtuali:
+
+\begin{description}
+	\item[Valute virtuali]:  si intende una rappresentazione digitale di valore che non viene emesso da una banca centrale o da un’autorità pubblica e non necessariamente collegato a una moneta a corso legale, ma è accettato da persone fisiche o giuridiche come mezzo di pagamento e può essere trasferita, immagazzinata o scambiata elettronicamente.\footnote{ttps://www.ecb.europa.eu/pub/pdf/other/virtualcurrencyschemesen.pdf}
+\end{description}
+
+La logica che sta dietro all'assegnazione del valore di un singolo "coin", sia che la criptovaluta sia riconosciuta o meno come moneta a corso legale, è la stessa delle valute fiat. Essa si riduce, ad esempio, al chiedersi quanto vale un RMB in Euro: tutte le valute hanno un proprio valore di cambio rispetto a tutte le altre. 
+
+Il mercato costituito dagli scambi delle valute è il Forex\footnote{Foreign exchange market o mercato valutario} e Bitcoin e le altre valute virtuali non sono incluse in esso.
+
+Nonostante le criptovalute siano riconosciute solo come mezzo di pagamento e non come bene, esistono gli scambia valute o \textit{exchange}, i quali sono il punto di contatto tra l'ecosistema delle valute virtuali e delle monete a corso legale. 
+
+Poloniex, Kraken, BTC-e sono solo alcuni exchange che offrono questi servizi di compravendita di criptovalute. I servizi offerti da questi enti sono vari, dalla compra-vendita e trading di qualsiasi valuta, al fornire wallet con cui gestire i propri bilanci online.\\
+
+E' dal fenomeno di trading che si stabilisce il prezzo, in particolare si fa riferimento al modello \textit{Price taker e maker}. Esso definisce le operazioni che due entità, maker e taker, eseguono al di sopra di una piattaforma di trading interna all'exchange, entrambe operano in duplice modo:
+
+\begin{description}
+	\item[Maker]: notifica al \textit{libro degli ordini} che è intenzionato a comprare una quantità V di un bene per un determinato prezzo P, oppure a vendere un totale V per un compenso di P.
+	\item[Taker]: osservando gli ordini, segnalerà la volontà di comprare V al prezzo di P (dove P è maggiore o uguale del minimo prezzo dei Maker per vendere V) o di vendere V al prezzo di P (dove é minore o uguale del massimo prezzo dei maker per comprare V).
+\end{description} 
+
+L'incontro tra una richiesta dei maker e la corrispettiva richiesta del taker che la soddisfa produrrà lo scambio tra le due entità. L'exchange potrà applicare delle tasse alle richieste dei maker e taker per incentivare o disincentivare certe operazioni o volumi scambiati\footnote{\url{https://www.kraken.com/help/fees}}.
+ 
+L'incontro tra le offerte tra maker e taker determinerà il valore delle criptovalute, e quindi sarà molto volatile e potrà cambiare molte volte nel giro di pochi minuti. Il valore di un coin non sarà univoco, ma andrà contestualizzato a seconda di quale exchange si sta usando, in quale valuta vuole essere convertito e in che preciso istante lo si sta osservando \cite{seforo2014currency}.
+
+\subsubsection{Halving}
+
+In alcune reti blockchain è presente il concetto di halving che consiste nel periodico dimezzamento del bounty reward. Quest'ultimo è il compenso, in termini di criptovaluta, che il miner riceve per aver aggiunto un blocco alla catena. Nei sistemi che implementano questa funzionalità, l'halving avviene in periodi fissati (es. ogni $n$ blocchi) che portano, nel corso del tempo, ad una situazione nella quale il numero di monete prodotte per blocco sarà zero e il numero di monete prodotte avrà raggiunto il tetto massimo. Se l'implementazione potrebbe sembrare una feauture con scopi prettamente tecnici, in realtà è inserita in molte blockchain per gestire unicamente aspetti economici. Lo scopo di questa procedura è diminuire l'inflazione che l'immissione di nuova valuta può dare a lungo termine. L'inflazione determina la diminuzione del potere d'acquisto della criptovaluta, osservabile tramite il cambio rispetto a monete fiat, causato dall'introduzione nella rete blockchain di nuove monete. In Bitcoin il fatto che oltre il 75\%,rispetto al tetto massimo di 21 milioni, delle monete sia già stato introdotto in circolazione e l'halving ne riduca sempre di più l'introduzione porta ad una continua crescita del prezzo legato ad una domanda sempre più crescente per accaparrarsi il maggior numero di valuta prima che l'emissione si fermi.\\
+
+%http://smartmoney.startupitalia.eu/bitcoin-blockchain/51665-20160202-halving-bitcoin
+Un'altro aspetto importante è che i miner basano la sostenibilità dei loro sforzi dagli incentivi che la blockchain li assegna: oltre a il reward del blocco e le fee applicate alle transazioni non ci sono altri metodi interni alla blockchain per ricavare un compenso\footnote{\url{http://smartmoney.startupitalia.eu/bitcoin-blockchain/51665-20160202-halving-bitcoin}}\footnote{In altri sistemi, come Ethereum, è presente anche il concetto di Uncle che sarà analizzato nei capitoli seguenti}.
+
+Se il reward del blocco si dimezza e i valori del cambio o delle tasse rimangono invariati molti miner non riusciranno più a sostenere i costi e si sposteranno a minare, se possibile, altre monete più proficue. Se, come in Bitcoin, le transazioni richieste superano quelle incluse nei blocchi, solo le tx con fee più alte verranno incluse portando l'aumento del valore delle fee complessivo.
+
+Alcune blockchain non implementano l'halving perchè, come Ethereum, pensano che la somma totale delle criptovalute perse dagli utenti (attraverso la perdita delle loro chiavi o della propria password, l'invio di valuta in transazioni inspendibili) svolgerebbe in parte la stessa funzione dell'halving.
+

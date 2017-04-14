@@ -1,0 +1,31 @@
+{
+  "contract_name": "Name2Address",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "name": "hashMap",
+      "outputs": [
+        {
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "name": "contr",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    }
+  ],
+  "unlinked_binary": "0x6060604052346000575b60c1806100176000396000f300606060405263ffffffff60e060020a600035041663aa475f9f81146022575b6000565b34600057602f6004356062565b6040805173ffffffffffffffffffffffffffffffffffffffff938416815291909216602082015281519081900390910190f35b6000602081905290815260409020805460019091015473ffffffffffffffffffffffffffffffffffffffff9182169116825600a165627a7a72305820e664adf434676fc5ac8fedb86e194d02d8fedfed62ae14058583bf2a3be16eef0029",
+  "networks": {},
+  "schema_version": "0.0.5",
+  "updated_at": 1490442539216
+}

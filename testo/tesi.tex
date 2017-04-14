@@ -1,0 +1,108 @@
+\documentclass[12pt,oneside,a4paper]{article}
+
+%% Language and font encodings
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb,tikz,pdftexcmds,xparse}
+
+
+%change caption of contents e appendices
+
+
+
+\addto\captionsenglish{% Replace "english" with the language you use
+	\renewcommand{\figurename}{Figura}%
+	\renewcommand{\contentsname}{Table of Contents}%
+	\renewcommand{\contentsname}{Contenuti}
+}
+
+
+%% Give you the possibiliy of split text
+\usepackage{seqsplit}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%%allow to break url
+\usepackage[hyphens]{url}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./immagini/} }
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=black]{hyperref}
+\usepackage{todonotes}
+\usepackage{multicol}
+
+%appendice 
+\usepackage[toc,page]{appendix}
+\renewcommand\appendixtocname{Appendice}
+\renewcommand\appendixpagename{Appendice}
+%% Personal function
+\input{./Struttura/Funzioni.tex}
+
+\usepackage{algorithm2e}
+\usepackage{algorithmic}
+
+%no label
+\usepackage[nolabel, final]{showlabels}
+
+%% Solidity env, per ora è java
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+	language=Java,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+
+
+	\title{STUDIO SU SISTEMI DISTRIBUITI E DECENTRALIZZATI BASATI SU BLOCKCHAIN}
+	\author{Luca Vecchi - Matricola 830718}
+	\date{13 Aprile 2017}
+
+\begin{document}
+	\input{./Struttura/Frontespizio.tex}
+	
+
+	%\maketitle
+	\clearpage
+	\tableofcontents
+
+
+
+	\input{Struttura/Introduzione.tex}
+	\clearpage
+	\input{Struttura/PrimoCapitolo.tex}
+	\clearpage
+	\input{Struttura/SecondoCapitolo.tex}
+	\clearpage
+	\input{Struttura/Conclusioni.tex}
+	\clearpage
+	\input{Struttura/Appendice.tex}
+	\clearpage
+
+
+	%% Bibliography .bib
+	\bibliography{./Struttura/bib.bib}
+	\bibliographystyle{unsrt}	
+\end{document}

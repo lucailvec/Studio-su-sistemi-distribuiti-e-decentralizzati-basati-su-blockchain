@@ -1,0 +1,104 @@
+\documentclass[11pt,oneside,a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb,tikz,pdftexcmds,xparse}
+
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./immagini/} }
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{todonotes}
+\usepackage{refcheck}
+
+
+\title{STUDIO SU SISTEMI DISTRIBUITI E DECENTRALIZZATI BASATI SU BLOCKCHAIN}
+\author{Luca Vecchi - Matricola 830718}
+\date{13 Aprile 2017}
+
+\begin{document}
+	
+	\maketitle
+	
+	%\todo{va ridotto un po', meno parte introduttiva e più ``roba tua''}
+	
+	Il presente lavoro è frutto di un progetto presso il Dipartimento di Informatica dell'Università di Milano sotto la supervisione del Dott. Trentini Andrea Mario ed è lo studio dell'applicazione di concetti quali \textit{blockchain}, \textit{Dapp}, attraverso la realizzazione di un software ``smart-contract'' finalizzato alla gestione dei diritti d'autore sulle opere dell'ingegno. Scopo della presente ricerca è stato costruire un'organismo autonomo per la gestione delle opere autoriali che non possa essere soggetto a censura, frodi, manomissioni e, per mezzo della criptovaluta, un autore possa ottenere un guadagno economico dalla registrazione ed utilizzo dell'opera stessa da altri utenti.%\todo{soprattutto questo deve poi esserci nella tesi, cioe' devi spiegare se e come una architettura ``blockchain'' permetta cio' che prometti, sarebbe da aggiungere agli use case, farne uno ``censura di un libro''}
+	
+	L'idea della registrazione e gestione delle opere autoriali mediante sistemi informativi centralizzati non è nuova e possono essere trovati in rete numerosi esempi di piattaforme e compagnie di \textit{escrow}\footnote{Escrow o acconto di garanzia è un contratto tra una o più parti che stipulano un accordo nel quale un bene, materiale o immateriale, viene depositato presso una terza parte fidata (la compagnia di escrow) che veglierà sul rispetto delle clausole}.%\todo{definire termine} 
+
+	%%da rivedere
+	Gli escrow, come i sistemi centralizzati che permettono l'interazione tra più soggetti, proteggono le transazioni ma allo stesso tempo, poiché concentrano le informazioni in un unico point-of-failure, espongono le stesse al rischio di censura, frode e manomissioni. 
+	
+	Il presente lavoro si basa sul concetto di blockchain, database immutabile, distribuito, protetto da crittografia e accettato tramite consenso da un sistema decentralizzato di peer. La natura crittografica della blockchain permette di costruire particolari meccanismi e automazioni, tra cui gli \textit{smart contract}, che consentono, attraverso una transazione, di trasferire digital asset da una persona ad un'altra. 
+	
+	La transazione non avviene tramite una terza parte fidata (come può essere una banca), ma viene presa in carico, anche nello stesso istante, da uno o più nodi, indipendenti l'uno dall'altro, chiamati \textit{miner}, i quali, verificano la sua validità, raggruppandola con altre in blocchi concatenati tramite precise regole condivise chiamate \textit{regole di consenso}. %\todo{vedi? qui e' detto bene, devi avere la stessa chiarezza in testa quando spieghi la tua applicazione dimostrativa!}
+	
+	Inizialmente la registrazione e verifica della proprietà di opere autoriali era garantita da enti centralizzati come la \textit{SIAE}; con l'avvento della blockchain ed Ethereum, i quali permettono l'esecuzione di smart contract in una piattaforma decentralizzata, la gestione della proprietà delle opere avviene in modo imparziale e sicuro.
+
+	
+	Nel presente lavoro si è voluto analizzare lo sviluppo di una \textit{proof of concept}, simulata in una rete privata e isolata dalle blockchain in Internet. 
+	
+	Inizialmente il nodo che registrava le transazioni, eseguiva gli smart contract e minava i blocchi era gestito tramite l'applicativo \textit{Testrpc}, il quale simula l'esecuzione di un \textit{full-node}\footnote{Full-node: indica le funzionalità di un nodo della blockchain, la cui principale è la capacità di minare nuovi blocchi. Si contrappone al \textit{light-node} che non possiede questa funzionalità, ma consente solamente di connettersi e scambiare messaggi con altri nodi.} rendendo la fase di sviluppo più veloce. %\todo{sistemare, non chiaro}
+	
+	Tuttavia, è stato osservato che esso non consentiva di simulare situazioni reali creando una rete privata di nodi, di conseguenza è stato deciso di utilizzare \textit{Geth}, software full-node più in uso e completo. 
+	
+	Ciò ha permesso di assumere il pieno controllo delle operazioni di mining, della connettività di rete e predisporre di una console a linea di comando con cui è stato possibile testare varie funzionalità tra cui creare e distruggere account, firmare ed eseguire le transazioni, ispezionare lo stato delle transazioni e dei blocchi.
+	
+	Lo smart contract è scritto in \textit{Solidity}, un linguaggio ad oggetti Turing completo, che una volta compilato in bytecode permette l'esecuzione di codice all'interno della Ethereum Virtual Machine o EVM.
+	
+	Per sviluppare gli smart contract si è optato per l'utilizzo di \textit{Solidity browser}, un'interfaccia web che fornisce un ide di sviluppo e vari strumenti per l'interazione e testing dei contratti, il deploy, la compilazione e la verifica formale automatica del codice scritto.
+	
+	Allo scopo di ottenere il massimo controllo sull'operazione di deploy, il codice sorgente è stato compilato tramite il compilatore \textit{Solc} e, successivamente, importati i contratti direttamente dalla console di Geth.
+	
+	Per il testing, sono stati sviluppati alcuni test di unità in \textit{Mocha} che hanno permesso di approfondire il funzionamento del linguaggio Solidity.
+	
+%	\todo{va messo tutto al passato, questo è un riassunto di ciò che hai fatto, non di ciò che farai}
+	
+	Lo smart contract così implementato permette la registrazione e il trasferimento, anche temporaneo, della proprietà di un opera da uno specifico account Ethereum ad un altro. Un'opera è riconoscibile attraverso i metadati che un utente inserisce in fase di registrazione dell'opera. Ognuno connesso alla blockchain può verificare la storia della catena della proprietà e i vincoli pendenti su un'opera.
+	
+	Sulla blockchain risiede il contratto \textit{Digichain} che impersona un'organizzazione autonoma per la gestione delle opere alla quale un autore può caricare la propria opera sotto forma di metadati.
+	L'utente può acquisire e registrare in un contratto l'utilizzo dell'opera versando un corrispettivo in Ether (la valuta di Ethereum). L'autore può verificare lo stato della cessione dell'opera e in particolari casi, Digichain provvede a rimuovere il contratto autonomamente restituendo il denaro a specifici soggetti.
+	
+	E' stato implementato il pattern \textit{System of Contracts} che permette la modifica del contratto Digichain già distribuito mediante un contratto di registrazione.
+	
+	Inoltre è stato aggiunto il contratto \textit{GlobalRegistrar} che implementa un sistema di risoluzione dei nomi. Un utente può registrare l'indirizzo di un contratto e associarli un nome simbolico.
+	
+	Se da una parte lo sviluppo del progetto Ethereum sia ancora all'inizio e i recenti avvenimenti che l'hanno coinvolto pongono vari interrogativi su quanto possa essere stabile e sicuro sviluppare applicazioni decentralizzate su questo sistema, dall'altra, invece, le possibilità di sviluppare applicazioni su blockchain, i grandi investimenti finanziari ricevuti per il proseguimento dello sviluppo di Ethereum e le collaborazioni con grandi nomi del settore IT dimostrano una grande fiducia nel progetto e nelle tecnologie basate su blockchain.
+	
+	 
+	\iffalse	
+	Questo progetto mi ha permesso di approfondire il funzionamento dei sistemi Ethereum e Bitcoin, sviscerare le applicazioni della crittografia negli algoritmi di consenso, nella firma e cifratura, la vasta moltitudine di applicazioni basate su blockchain, nonché le alternative a questa tecnologia. Mi ha dato a possibilità inoltre di sperimentare vari framework reattivi per lo sviluppo di applicazioni frontend.
+	\fi
+	
+	La progettazione di smart contract in Ethereum è stata guidata sia dai limiti imposti dal nuovo linguaggio di programmazione e dal paradigma di Ethereum dove qualsiasi computazione ha un prezzo, sia da pattern orientati ai contratti che permettono di oltrepassare vari limiti come l'impossibilità di aggiornare il codice dei contratti, sia dall'assenza di meccanismi decentralizzati per creare eventi temporizzati.
+	
+	L'applicazione può essere un punto di partenza per ulteriori ricerche riguardanti la sua interazione con i browser, che attraverso plug-in, permetterebbe la verifica automatica del diritto d'uso delle opere digitali contenute in un sito.
+
+	\iffalse
+	\begin{enumerate}
+		\item L'oggetto della tesi
+		\item Lo scopo
+		\item Progetti simili
+		\item cosa aggiunge
+		\item cos'è la blockchain
+		\item L'innovazione di ethereum
+		\item Cos'è ethereum
+		\item Come lo usiamo
+		\item Cosa usiamo Solidity 
+		\item Nuovo paradigma pattern
+		\item Sviluppi futuri
+	\end{enumerate}
+
+	%% Bibliography .bib
+	\bibliography{./bib.bib}
+	\bibliographystyle{unsrt}
+	\fi
+\end{document}

@@ -1,0 +1,6 @@
+Titolo tesi: Studio su distribuiti e decentralizzati basati su blockchain  
+Descrizione: L' elaborato introduce i sistemi basati su blockchain analizzando le applicazioni, basate su di essa, dalla nascita fino ad oggi. In particolare si studiano le cosiddette "cripto valute" quali Bitcoin ed Ethereum. Oltre agli aspetti tecnici verranno trattati anche quelli economici e sociali che determinano la morte o la diffusione di una determinata criptomoneta. Il corpo centrale sarà dedicato alla realizzazione di  un' applicazione distribuita basata su Ethereum.	
+Correlatore: 
+link wiki:
+data inizio: gennaio 2017 
+data fine prevista: aprile 2017

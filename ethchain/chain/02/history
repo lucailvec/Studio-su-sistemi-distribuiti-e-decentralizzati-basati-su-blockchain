@@ -1,0 +1,466 @@
+ls
+eth.accounts
+sblocca()
+eth.accounts
+sblocca()
+eth.blockNumber
+eth.getBlock(0)
+personal.getList
+personal.getListAccounts
+personal.getListAccounts()
+miner.start(1)
+miner.stop()
+miner.start(8)
+eth.accounts[0]
+sblocca()
+eth.accounts
+sblocca()
+miner.start(1)
+miner.stop()
+eth.getBlockNumber
+eth.getBlockNumber()
+eth.accounts[0]
+var altro = eth.accounts[0]
+altro
+var altro = eth.accounts[1]
+altro
+eth.getBalance(eth.coinbase)
+eth.getBalance(altro)
+sblocca()
+eth.sendTransaction({from : eth.coinbase, to: altro, value: 1})
+eth.sendTransaction({from : eth.coinbase, to: altro, value: 0.00000000000000001})
+web3.toWei(1,"ether")
+web3.toEther(1,"wei")
+eth.sendTransaction({from : eth.coinbase, to: altro, value: 0.00000001})
+eth.sendTransaction({from : eth.coinbase, to: altro, value: web3.toWei(0.0001,"ether")})
+sblocca()
+eth.sendTransaction({from : eth.coinbase, to: altro, value: web3.toWei(0.0001,"ether")})
+eth.sendTransaction({from : eth.coinbase, to: altro, value: web3.toWei(0.0000001,"ether")})
+eth.sendTransaction({from : eth.coinbase, to: altro, value: web3.toWei(0.000000001,"ether")})
+eth.sendTransaction({from : eth.coinbase, to: altro, value: web3.toWei(0.000000000001,"ether")})
+eth.getBalance(eth.coinbase)
+sblocca()
+eth.sendTransaction({from : eth.coinbase, to: altro, value: web3.toWei(0.000000000001,"ether")})
+eth.sendTransaction({from : eth.coinbase, to: eth.accounts[2], value: web3.toWei(0.000000000001,"ether")})
+eth.sendTransaction({from : eth.coinbase, to: eth.accounts[2], value: web3.toWei(1,"ether")})
+miner.start(2)
+eth.sendTransaction({from : eth.coinbase, to: eth.accounts[2], value: web3.toWei(1,"ether")})
+eth.getBalance(eth.coinbase)
+miner.start(2)
+eth.blockNumber
+miner.setGasPrice(1)
+eth.getBalance(eth.coinbase)
+sblocca()
+eth.getBalance(eth.coinbase)
+eth.sendTransaction({from:eth.coinbase, to:eth.accounts[1], value: web3.toWei(0.05, "ether")})
+eth.getBalance(eth.accounts[1])
+eth.getPendingTransactions
+eth.getPendingTransactions()
+miner.stop()
+eth.getPendingTransactions
+eth.getPendingTransactions()
+miner.stop()
+ls
+net.listening
+admin.peers
+admin.addPeer("enode://0f1fc6d1385e57dd5723fe96298dbdc323bd0182460aecb3eaef8b5e4615a06184facd3541965e30beb108d70feb05d3b3818fe1ec5019b009c8a479fbd1507c@[::]:30301")
+admin.peers
+miner.start(1)
+eth.getBalance(eth.coinbase)
+eth.accounts
+eth.getBalance(eth.coinbase)
+miner.stop()
+admin.setSolc("/usr/local/bin/solcjs")
+eth.compile.solidity("")
+admin.setSolc("/usr/local/bin/solcjs")
+admin.setSolc("/usr/local/bin/solc")
+admin.setSolc("/usr/local/bin/solcjs")
+eth.compile.solidity("")
+admin.setSolc("/usr/local/bin/solc")
+admin.setSolc("/usr/bin/solc")
+eth.compile.solidity("")
+eth.getBlock(4000)
+admin.addPeer("enode://0f1fc6d1385e57dd5723fe96298dbdc323bd0182460aecb3eaef8b5e4615a06184facd3541965e30beb108d70feb05d3b3818fe1ec5019b009c8a479fbd1507c@[::]:30301")
+miner.start(1)
+admin.peers
+eth.getHashrate
+eth.getHashrate()
+eth.getBlockNumber
+eth.getBlockNumber()
+eth.getBlockNumber(function (e,r){ return r;})
+eth.getBlockNumber()
+eth.accounts
+admin.peers
+deployer
+gbl = globalRegistrar.getGlobalRegistrar()
+gbl.getAddressContract("lucavecchi")
+gbl.getAddressContract("prof")
+admin.addPeer("enode://0f1fc6d1385e57dd5723fe96298dbdc323bd0182460aecb3eaef8b5e4615a06184facd3541965e30beb108d70feb05d3b3818fe1ec5019b009c8a479fbd1507c@[::]:30301")
+miner.start(1)
+miner.stop()
+loadScript("build/compiled.js")
+compiled
+compiled.contracts.Digichain.sol:Digichain
+compiled.contracts.["Digichain.sol:Digichain"]
+compiled.contracts["Digichain.sol:Digichain"]
+digichain = deployer.deployAbiAndCode(compiled.contracts.["Digichain.sol:Digichain"].abi,compiled.contracts.["Digichain.sol:Digichain"].bin)
+digichain = deployer.deployAbiAndCode(compiled.contracts["Digichain.sol:Digichain"].abi,compiled.contracts["Digichain.sol:Digichain"].bin)
+sblocca()
+miner.start(1)
+digichain = deployer.deployAbiAndCode(compiled.contracts["Digichain.sol:Digichain"].abi,compiled.contracts["Digichain.sol:Digichain"].bin)
+miner.stop()
+JSON.parse(compiled.contracts["Digichain.sol:Digichain"].abi)
+loadScript("jsScript/deployer.js")
+digichain = deployer.deployAbiAndCodeAndParseJSON(compiled.contracts["Digichain.sol:Digichain"].abi,compiled.contracts["Digichain.sol:Digichain"].bin)
+sblocca();
+digichain = deployer.deployAbiAndCodeAndParseJSON(compiled.contracts["Digichain.sol:Digichain"].abi,compiled.contracts["Digichain.sol:Digichain"].bin)
+loadScript("jsScript/deployer.js")
+digichain = deployer.deployAbiAndCodeAndParseJSON(compiled.contracts["Digichain.sol:Digichain"].abi,compiled.contracts["Digichain.sol:Digichain"].bin)
+eth.mining
+miner.start(1)
+sblocca();
+digichain = deployer.deployAbiAndCodeAndParseJSON(compiled.contracts["Digichain.sol:Digichain"].abi,compiled.contracts["Digichain.sol:Digichain"].bin)
+eth.getBlock("latest")
+eth.getTransaction("0x77afc105932e174ecb43f6ba4221dbb3e1de871829565c50fec1f6caa669dc66")
+eth.getBlockNumber
+eth.getBlockNumber()
+eth.getBlockNumber("latest")
+eth.getBlock
+eth.getBlock()
+eth.getBlock("latest")
+admin.peers
+eth.getBlock("latest")
+eth.mining
+eth.hashrate
+eth.getBlock("latest")
+sblocca()
+gbl.add.sendTransaction("digichain","0x497ad2e252db660d03fe36c9ae52a9ff0f27970f",{from: eth.coinbase})
+eth.getTransaction("0xcf76e818b54c44c4d51c246617e3a754fb51fc67ef11c51efe0bcd88394e50aa")
+eth.getBlock("latest")
+eth.getTransaction("0xcf76e818b54c44c4d51c246617e3a754fb51fc67ef11c51efe0bcd88394e50aa")
+digichain.creaOpera.call("La mia opera","20","2",{from: eth.coinbase})
+digichain.creaOpera.sendTransaction("La mia opera","20","2",{from: eth.coinbase})
+sblocca()
+digichain.creaOpera.sendTransaction("La mia opera","20","2",{from: eth.coinbase})
+eth.getTransaction("0xcf76e818b54c44c4d51c246617e3a754fb51fc67ef11c51efe0bcd88394e50aa")
+gbl.getAddressContract("digichain")
+digichain.address
+eth.getTransaction("0x9719a424526237f08be47efbc7584f862d83b013f47c2dd4b84f616fff89bcc2")
+digichain.getOwner("0")
+digichain.getOwner.call("0")
+digichain.opere("0")
+digichain.opere("1")
+digichain.opere("0")
+digichain.opere.call("0")
+digichain.opere.sendTransaction("0",{from: eth.coinbase})
+sblocca()
+digichain.opere.sendTransaction("0",{from: eth.coinbase})
+digichain.opere.sendTransaction("0")
+digichain.opere.call("0")
+digichain.opere("0")
+digichain.opere("1")
+digichain.opere("2")
+eth.accounts[0]
+eth.coinbase
+digichain.getBaseCost( 0 )
+digichain.getBaseCost( 1 )
+digichain.opera( 1 )
+digichain.opere( 1 )
+miner.stop()
+digichain.length()
+digichain.length.call()
+digichain.opere.call()
+digichain.opere.call(0)
+gbl.getAddressContract("digichain")
+digichain.getOwner("0")
+loadScript("jsScript/deployer.js")
+loadScript("build/compiled.js")
+sblocca()
+miner.start(1)
+dchain = deployer.deployCompiledByNameAndCompiled("Digichain",compiled)
+eth.getTransaction("0x8c6e7276d77e47c17b83ce1094cdbdc1dc2849760d99a8d48df7ce5993153859")
+sblocca()
+gbl.add.sendTransaction("digichain","0xc7f12d4bc9811c7664910a4fd38f2ea1c4b2219d",{from: eth.coinbase})
+var eventDigichain = glb.CreazioneOpera({},'',function(e,r){
+if(!error)
+console.log("Nuova opera : " + r.args.addr + "  id: " +  r.args.id_opera +" con " + r.args.costoBase + " costoTempo: " + r.args.costoTempo);
+})
+var eventDigichain = dchain.CreazioneOpera({},'',function(e,r){
+if(!error)
+console.log("Nuova opera : " + r.args.addr + "  id: " +  r.args.id_opera +" con " + r.args.costoBase + " costoTempo: " + r.args.costoTempo);
+})
+eth.miner
+eth.mining
+eth.getBlock("latest")
+dchain.creaOpera.sendTransaction("opera","20","2",{from: eth.coinbase})
+sblocca()
+dchain.creaOpera.sendTransaction("opera","20","2",{from: eth.coinbase})
+dchain.getOwner("0")
+dchain.getOwner.call("0")
+eth.getTransaction("0x8b9d427c468e8871f0332583837dc536b27d21845123920fec034e2c4cf18c7b")
+eth.getTransaction("0x8c6e7276d77e47c17b83ce1094cdbdc1dc2849760d99a8d48df7ce5993153859")
+eth.getBlock("pending",true)
+eth.getTransaction("0x8b9d427c468e8871f0332583837dc536b27d21845123920fec034e2c4cf18c7b")
+dchain.length()
+dchain.length.call()
+dchain.length
+dchain.length()
+dchain.length.call()
+dchain.length.call("")
+sblocca()
+dchain.getOwner.call("0")
+dchain.getOwner("0")
+dchain.getOwner(0)
+dchain.getOwner(1)
+var eventDigichain = dchain.CreazioneOpera({},'',function(e,r){
+if(!error)
+console.log("Nuova opera : " + r.args.addr + "  id: " +  r.args.id_opera +" con " + r.args.costoBase + " costoTempo: " + r.args.costoTempo);
+})
+eventDigichain
+dchain
+eth.mining
+dchain.creaOpera.sendTransaction("ciao","2","2",{from: eth.coinbase})
+debug.traceTransaction("0x21f0ad360e9045f594403a122490bab5c7b1a33c2b5f55b7ea011b78e026a724")
+eth.getTransaction("0x21f0ad360e9045f594403a122490bab5c7b1a33c2b5f55b7ea011b78e026a724")
+dchain.length
+dchain.length()
+debug.traceTransaction("0x21f0ad360e9045f594403a122490bab5c7b1a33c2b5f55b7ea011b78e026a724")
+debug.traceTransaction("0x21f0ad360e9045f594403a122490bab5c7b1a33c2b5f55b7ea011b78e026a724").error
+var status = debug.traceTransaction("0x21f0ad360e9045f594403a122490bab5c7b1a33c2b5f55b7ea011b78e026a724")
+status
+status.structLogs[status.structLogs.length-1].error
+dchain.opere("0")
+dchain.opere("1")
+dchain.opere("2")
+dchain.opere("3")
+dchain.opere("0")
+eth.coinbase
+dchain.opere("3")
+dchain.opere(3)
+dchain.opere(0x3)
+dchain.opere(0x01)
+dchain.opere(0x02)
+status.structLogs[status.structLogs.length-1].error
+miner.stop()
+dchain.opere(20)
+dchain.opere(19)
+dchain.opere("20")
+dchain.opere(1)
+dchain.address
+dchain.manager
+dchain.manager()
+dchain.contratti(eth.coinbase)
+eventDigichain
+var eventDigichain = dchain.CreazioneOpera({},'',function(e,r){
+console.log(e);
+if(!e)
+console.log("Nuova opera : " + r.args.addr + "  id: " +  r.args.id_opera +" con " + r.args.costoBase + " costoTempo: " + r.args.costoTempo);
+})
+miner.start(1)
+dchain.creaOpera("provaluca","2","2",{from:eth.coinbase})
+sblocca()
+dchain.creaOpera("provaluca","2","2",{from:eth.coinbase})
+eth.getTransaction("0xaa1382cd7994e3dc697c9fcddaa775eb3d7a551879ea5dc4ed733bb082d2d869")
+eth.mining
+eth.getTransaction("0xaa1382cd7994e3dc697c9fcddaa775eb3d7a551879ea5dc4ed733bb082d2d869")
+eth.getTransactionReceipt("0xaa1382cd7994e3dc697c9fcddaa775eb3d7a551879ea5dc4ed733bb082d2d869")
+eth.getTransaction("0xaa1382cd7994e3dc697c9fcddaa775eb3d7a551879ea5dc4ed733bb082d2d869")
+eth.mining
+eth.getTransaction("0xaa1382cd7994e3dc697c9fcddaa775eb3d7a551879ea5dc4ed733bb082d2d869")
+eth.getTransactionReceipt("0xaa1382cd7994e3dc697c9fcddaa775eb3d7a551879ea5dc4ed733bb082d2d869")
+dchain.length
+dchain.length()
+miner.stop()
+miner.start()
+miner.stop()
+miner.start(1)
+digichain = deployer.deployCompiledByNameAndCompiled("Digichain",compiled)
+sblocca()
+digichain = deployer.deployCompiledByNameAndCompiled("Digichain",compiled)
+glb = globalRegistrar.getGlobalRegistrar()
+glb.add("digichain","0x2a1dfc5e8fd1e04063eef3f99785e8b0f972d8a4")
+glb.add.sendTransaction("digichain","0x2a1dfc5e8fd1e04063eef3f99785e8b0f972d8a4",{from : eth.coinbase})
+sblocca()
+glb.add.sendTransaction("digichain","0x2a1dfc5e8fd1e04063eef3f99785e8b0f972d8a4",{from : eth.coinbase})
+glb.getAddressContract("digichain")
+digichain.creaOpera.sendTransaction("ciao","2","2",{from: eth.coinbase})
+digichain.length
+digichain.length()
+eth.getTransactionReceipt("0x3f3350b7592f0747051549d46310f188a53088d1fda68134edb3029755445df3")
+digichain.length()
+digichain.manager
+digichain.manager()
+digichain.length()
+digichain.length.sendTransaction({from: eth.coinbase})
+sblocca()
+digichain.length.sendTransaction({from: eth.coinbase})
+digichain.length()
+miner.stop()
+loadScript("build/compiled.js")
+digichain = deployer.deployCompiledByNameAndCompiled("Digichain",compiled)
+sblocca()
+digichain = deployer.deployCompiledByNameAndCompiled("Digichain",compiled)
+eth.mining
+miner.start(1)
+glb.add.sendTransaction("digichain","0x1db53c7f32d4eae4573c4a88735ea47f3fe5701b",{from: eth.coinbase})
+sblocca()
+glb.add.sendTransaction("digichain","0x1db53c7f32d4eae4573c4a88735ea47f3fe5701b",{from: eth.coinbase})
+digichain.length()
+digichain.creaOpera("ciao","2","2",{from: eth.coinbase})
+glb.getAddressContract("digichain")
+eth.getTransaction("0x90b45b2250874f421af6ac50b8c387e6d21854879080a206e9e9fdb8f23c952e")
+digichain.length()
+debug.traceTransaction("0x90b45b2250874f421af6ac50b8c387e6d21854879080a206e9e9fdb8f23c952e")
+eth.getTransaction("0x90b45b2250874f421af6ac50b8c387e6d21854879080a206e9e9fdb8f23c952e")
+loadScript("../build/compiled.js")
+loadScript("build/compiled.js")
+miner.start(1)
+sblocca()
+digichain = deployer.deployCompiledByNameAndCompiled("Digichain",compiled)
+sblocca()
+digichain.creaOpera("ciao","2","2",{from: eth.coinbase})
+digichain.length()
+digichain.manager
+digichain.manager()
+digichain.opere(1)
+digichain.getOwner(1)
+digichain.getOwner("1")
+digichain.manager.call()
+digichain.getOwner.call(1)
+eth.mining
+digichain.creaOpera("ciao","2","2",{from: eth.coinbase,value: 10000})
+digichain.creaOpera("ciao","2","2",{from: eth.coinbase,gas: 3000000})
+sblocca()
+digichain.creaOpera("ciao","2","2",{from: eth.coinbase,gas: 3000000})
+eth.getTransaction("0x4acae2d2ec9947c4bbe5f1ade92c98ba1d859d6ebcbd2436ea9b923f834611da")
+digichain.length()
+digichain.getOwner(1)
+digichain.getOwner(0)
+digichain.opere(0)
+var eventDigichain = digichain.CreazioneOpera({},'',function(e,r){
+console.log(e);
+if(!e)
+console.log("Nuova opera : " + r.args.addr + "  id: " +  r.args.id_opera +" con " + r.args.costoBase + " costoTempo: " + r.args.costoTempo);
+})
+digichain.creaOpera("il mondo di amelie","2","2",{from: eth.coinbase,gas: 3000000})
+sblocca()
+digichain.creaOpera("il mondo di amelie","2","2",{from: eth.coinbase,gas: 3000000})
+admin.nodeInfo
+miner.stop()
+glb= globalRegistrar.getGlobalRegistrar()
+glb.getAddressContract("lucavecchi")
+glb.getAddressContract("prof")
+digichain = deployer.deployCompiledByNameAndCompiled("Digichain",compiled)
+sblocca()
+digichain = deployer.deployCompiledByNameAndCompiled("Digichain",compiled)
+miner.start(1)
+sblocca()
+digichain.creaOpera("ciao mondo(opera)","0","1000000",{from: eth.coinbase,gas:3000000})
+digichain.length()
+digichain.opere(0)
+admin.nodeInfo
+admin.peers
+glb.add("digichain","0x6713b8233bcd748c5338a26cde0d1bba9765edbe")
+sblocca()
+glb.add.sendTransaction("digichain","0x6713b8233bcd748c5338a26cde0d1bba9765edbe",{from: eth.coinbase})
+glb.getAddressContract("digichain")
+eth.coinbase
+eth.length()
+digichain.length()
+digichain.opere(0)
+clear
+eth.getTransaction("0x15d249768d5265e69f78b7611d9f9e06ba9a5675d4d15363b828751e34a99c86")
+var filter = web3.eth.filter({ address: glb.getAddressContract("digichain"), fromBlock: 0, toBlock: "latest" });
+filter
+var i = 0;
+filter.watch(function (error, result) {
+  console.log("RESULT: Filter " + i++ + ": " + JSON.stringify(result));
+});
+sblocca()
+digichain.compra.sendTransaction("1",{from: eth.coinbase,value: 5000000,gas: 4000000})
+digichain.contratti(eth.coinbase)
+digichain.getAmountToRefound(eth.coinbase)
+digichain.rinuncia.sendTransaction(,{from: eth.coinbase,gas: 4000000})
+digichain.rinuncia.sendTransaction({from: eth.coinbase,gas: 4000000})
+filter.stopWatching
+filter.stopWatching()
+miner.stop
+miner.stop()
+eth.mining
+admin.peers
+admin.nodeInfo
+admin.peers
+miner.start(1)
+glb = globalRegistrar.getGlobalRegistrar()
+glb.getAddressContract("lucavecchi")
+eth.coinbase
+glb.getAddressContract("prof")
+glb.getAddressContract("digichain")
+digichain = deployer.getIstanceFromAbiAndAddress(compiled.contracts.["Digichain.sol:Digichain"].abi, glb.getAddressContract("digichain"))
+digichain = deployer.getIstanceFromAbiAndAddress(compiled.contracts["Digichain.sol:Digichain"].abi, glb.getAddressContract("digichain"))
+digichain.length
+digichain.length()
+digichain.creaOpera.sendTransaction("libro1","0","1000000",{from: eth.coinbase,gas: 4000000})
+sblocca()
+digichain.creaOpera.sendTransaction("libro1","0","1000000",{from: eth.coinbase,gas: 4000000})
+eth.getTransaction("0x59e831cafae1655ab9d741f0f1677f0d500f0cd3d14fe1430b7c4834c599b85d")
+debug.traceTransaction("0x59e831cafae1655ab9d741f0f1677f0d500f0cd3d14fe1430b7c4834c599b85d")
+eth.getTransaction("0x59e831cafae1655ab9d741f0f1677f0d500f0cd3d14fe1430b7c4834c599b85d")
+eth.getTransaction("0x1501d4c5553284228726560b9f8202868316be8376dfc4831a35a1095bbbe586")
+eth.getTransaction("0x59e831cafae1655ab9d741f0f1677f0d500f0cd3d14fe1430b7c4834c599b85d")
+eth.getTransaction("0x1501d4c5553284228726560b9f8202868316be8376dfc4831a35a1095bbbe586")
+eth.mining
+digichain.contratti(eth.accounts[1])
+digichain.contratti(eth.accounts[0])
+digichain.contratti(eth.accounts[2])
+digichain.contratti(eth.accounts[3])
+miner.start(1)
+glb = globalRegistrar.getGlobalRegistrar()
+sblocca()
+glb.add.sendTransaction("ciaomondo",eth.coinbase,{from: eth.coinbase})
+eth.getTransaction("0x0356186421ca522103dfadac7ec2e3eaaa0cf393a12ffe1a9e592e0db002c6a0")
+sblocca()
+glb.add.sendTransaction("ciaomondo",eth.coinbase,{from: eth.coinbase,gas: 400000})
+eth.getTransaction("0x0356186421ca522103dfadac7ec2e3eaaa0cf393a12ffe1a9e592e0db002c6a0")
+eth.blockNumber
+eth.mining
+eth.blockNumber
+sblocca()
+glb.add.sendTransaction("ciaomondo",eth.coinbase,{from: eth.coinbase,gas: 400000})
+eth.getTransaction("0x323d6c60d13f8a0dfecbaca38efdb43a632d5aacdddeb09a3b881223bfd9c665")
+glb.getAddressContract("ciaomondo")
+miner.stop
+miner.stop()
+miner.start(1)
+glb = globalRegistrar.getGlobalRegistrar()
+glb.add.sendTransaction("nomeSimbolico",eth.accounts[2],{from: eth.coinbase})
+sblocca()
+glb.add.sendTransaction("nomeSimbolico",eth.accounts[2],{from: eth.coinbase})
+eth.coinbase
+glb.getAddressContract("nomesimbolico")
+glb.getAddressContract("nomeSimbolico")
+eth.gasPrice
+eth.getBlock("latest")
+digichain=deployer.getIstanceFromAbiAndAddress(compiled.contracts["Digichain.sol:Digichain"].abi,glb.getAddressContract("digichain"))
+digichain.length
+digichain.length()
+digichain.contratti(eth.coinbase)
+digichain.contratti(eth.accounts[1])
+digichain.contratti(eth.accounts[0])
+loadScript("jsScript/GlobalRegistrarInit.js")
+watcher = globalRegistrar.watchEventNewContract(glb)
+watcher
+watcher = globalRegistrar.watchEventNewContract(glb)
+loadScript("jsScript/GlobalRegistrarInit.js")
+watcher = globalRegistrar.watchEventNewContract(glb)
+glb.add.sendTransaction("nome",eth.accounts[2],{from: eth.coinbase})
+sblocca()
+glb.add.sendTransaction("nome",eth.accounts[2],{from: eth.coinbase})
+eth.mining
+watcher.getLogsCallbacks
+watcher.filterId
+digichain.opere(0)
+eth.mining
+eth.blockNumber
+gbl=globalRegistrar()
+glb=globalRegistrar.getGlobalRegistrar()
